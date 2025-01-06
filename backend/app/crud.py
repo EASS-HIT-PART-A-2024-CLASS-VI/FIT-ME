@@ -1,7 +1,7 @@
 import logging
 from sqlalchemy.orm import Session
-from app.models import User, InterestedClient, Task, Customer
-from app.schemas import InterestedClientCreate, TaskCreate, CustomerCreate
+from app.models import User, InterestedClient, Task, Client,GroupLesson,PersonalTraining
+from app.schemas import InterestedClientCreate, TaskCreate, ClientCreate
 
 logger = logging.getLogger(__name__)
 
@@ -53,14 +53,71 @@ def delete_task_by_phone_number(db: Session, phone_number: str):
     logger.warning(f"Task with phone_number {phone_number} not found.")
     return False
 
-def create_customer(db: Session, customer: CustomerCreate):
-    new_customer = Customer(**customer.dict())
-    db.add(new_customer)
+def create_client(db: Session, client: ClientCreate):
+    logger.info(f"Creating new client: {client}")
+    new_client = Client(**client.dict())
+    db.add(new_client)
     db.commit()
-    return new_customer
+    logger.info(f"Client created: {new_client}")
+    return new_client
 
-def get_customer_by_phone_number(db: Session, phone_number: str):
-    return db.query(Customer).filter(Customer.phone_number == phone_number).first()
 
-def get_customer_by_id_number(db: Session, id_number: str):
-    return db.query(Customer).filter(Customer.id_number == id_number).first()
+def get_client_by_phone_number(db: Session, phone_number: str):
+    return db.query(Client).filter(Client.phone_number == phone_number).first()
+
+def get_client_by_id_number(db: Session, id_number: str):
+    return db.query(Client).filter(Client.id_number == id_number).first()
+
+from app.models import GroupLesson
+
+def add_group_lesson(db: Session, day: str, time: str, class_name: str, instructor_name: str):
+    """
+    Add a group lesson to the 'group_lessons' table based on day and time
+    """
+    group_lesson = GroupLesson(
+        day=day,
+        time=time,
+        class_name=class_name,
+        instructor_name=instructor_name,
+    )
+    db.add(group_lesson)  # Add the lesson to the database session
+    db.commit()  # Commit the transaction to save changes
+    db.refresh(group_lesson)  # Refresh the instance to reflect updated values
+    return group_lesson  # Return the newly added lesson
+
+def get_all_group_lessons(db: Session):
+    """
+    Retrieve all group lessons from the table
+    """
+    return db.query(GroupLesson).all()  # Query all lessons from the database
+
+def add_personal_training(db: Session, day: str, time: str, trainee_name: str, trainer_name: str):
+    """
+    Add a personal training session to the table.
+    """
+    training = PersonalTraining(
+        day=day,
+        time=time,
+        trainee_name=trainee_name,
+        trainer_name=trainer_name,
+    )
+    db.add(training)
+    db.commit()
+    db.refresh(training)
+    return training
+
+def get_weekly_personal_trainings(db: Session):
+    """
+    Fetch all personal training sessions organized by day.
+    """
+    trainings = db.query(PersonalTraining).all()
+    schedule = {}
+    for training in trainings:
+        if training.day not in schedule:
+            schedule[training.day] = []
+        schedule[training.day].append({
+            "time": training.time,
+            "trainee_name": training.trainee_name,
+            "trainer_name": training.trainer_name,
+        })
+    return schedule

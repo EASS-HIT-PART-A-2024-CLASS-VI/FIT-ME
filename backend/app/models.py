@@ -1,6 +1,7 @@
-from sqlalchemy import Column, String, Integer, Enum, PrimaryKeyConstraint
+from sqlalchemy import Column, String, Integer, Enum, PrimaryKeyConstraint, Time, ForeignKey
 from app.database import Base
 from sqlalchemy.orm import relationship
+from app.schemas import MembershipType, PaymentMethod
 
 class User(Base):
     __tablename__ = "users"
@@ -27,16 +28,34 @@ class Task(Base):
         self.phone_number = phone_number
         self.description = description or f"{self.first_name} is interested in a gym membership. Please contact them ASAP."
 
-class Customer(Base):
-    __tablename__ = "customers"
+class Client(Base):
+    __tablename__ = "clients"
 
     phone_number = Column(String, nullable=False)
     id_number = Column(String, nullable=False)
     first_name = Column(String, nullable=False)
     last_name = Column(String, nullable=False)
-    subscription_type = Column(Enum("Monthly", "Yearly", "3 Months", name="subscription_types"), default="Monthly")
-    payment_method = Column(Enum("Cash", "Credit Card", name="payment_methods"), default="Cash")
+    membership_type = Column(Enum(MembershipType), nullable=False)
+    payment_method = Column(Enum(PaymentMethod), nullable=False)
 
+    __table_args__ = (PrimaryKeyConstraint('phone_number', 'id_number', name='client_pk'),)
+
+class GroupLesson(Base):
+    __tablename__ = "group_lessons"
+
+    day = Column(String, nullable=False)  # Day of the lesson (e.g., Sunday)
+    time = Column(String, nullable=False)  # Time of the lesson (e.g., 08:00-08:55)
+    class_name = Column(String, nullable=False)  # Name of the class
+    instructor_name = Column(String, nullable=False)  # Name of the instructor
+
+    # Define a composite primary key
     __table_args__ = (
-        PrimaryKeyConstraint('phone_number', 'id_number'),
+        PrimaryKeyConstraint('day', 'time'),
     )
+
+class PersonalTraining(Base):
+    __tablename__ = "personal_trainings"
+    day = Column(String, nullable=False, primary_key=True)  # Day of the week
+    time = Column(String, nullable=False, primary_key=True)  # Time of the session
+    trainee_name = Column(String, nullable=False)  # Name of the trainee
+    trainer_name = Column(String, nullable=False)  # Name of the trainer

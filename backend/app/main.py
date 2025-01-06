@@ -1,9 +1,10 @@
+import logging
 from fastapi import FastAPI, HTTPException, Depends
 from pydantic import BaseModel
 from sqlalchemy.orm import Session
 from app.database import engine, SessionLocal
-from app.models import Base, User, InterestedClient, Task
-from app.schemas import InterestedClientCreate, TaskCreate, Task, CustomerCreate, Customer
+from app.models import Base, User, InterestedClient, Task, Client,GroupLesson,PersonalTraining
+from app.schemas import InterestedClientCreate, TaskCreate, Task, ClientCreate, Client, GroupLessonCreate,GroupLessonsResponse,GroupLessonSchedule,PersonalTrainingCreate, WeeklyPersonalTrainingsResponse, PersonalTrainingBase
 from app.crud import (
     get_user_by_username,
     create_user,
@@ -17,11 +18,9 @@ from app.crud import (
     create_interested_client,
     create_task,
     get_all_tasks,
-    delete_task_by_phone_number,  # ייבוא הפונקציה החדשה
+    delete_task_by_phone_number,  
 )
-from app.crud import create_customer, get_customer_by_phone_number, get_customer_by_id_number
-import logging
-
+from app.crud import create_client, get_client_by_phone_number, get_client_by_id_number, add_group_lesson, get_all_group_lessons,add_personal_training, get_weekly_personal_trainings
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -97,7 +96,7 @@ def add_interested_client(client: InterestedClientCreate, db: Session = Depends(
         phone_number=client.phone_number,
         description=task_description
     )
-    create_task(db, new_task)  # Ensure this line has the correct indentation.
+    create_task(db, new_task)  
 
     return new_client
 
@@ -123,29 +122,107 @@ def delete_task(phone_number: str, db: Session = Depends(get_db)):
     logger.info(f"Task with phone_number {phone_number} deleted successfully.")
     return {"message": "Task deleted successfully"}
 
-@app.post("/customers/", response_model=Customer)
-def register_customer(customer: CustomerCreate, db: Session = Depends(get_db)):
-    logger.info(f"Registering new customer: {customer.first_name} {customer.last_name}")
-    existing_customer = get_customer_by_phone_number(db, customer.phone_number)
-    if existing_customer:
-        raise HTTPException(status_code=400, detail="Customer already exists with this phone number")
-    existing_id = get_customer_by_id_number(db, customer.id_number)
+@app.post("/clients/", response_model=Client)
+def register_client(client: ClientCreate, db: Session = Depends(get_db)):
+    logger.info(f"Registering new client: {client.first_name} {client.last_name}")
+    existing_client = get_client_by_phone_number(db, client.phone_number)
+    if existing_client:
+        raise HTTPException(status_code=400, detail="Client with this phone number already exists")
+    existing_id = get_client_by_id_number(db, client.id_number)
     if existing_id:
-        raise HTTPException(status_code=400, detail="Customer already exists with this ID number")
-    return create_customer(db, customer)
+        raise HTTPException(status_code=400, detail="Client with this ID number already exists")
+    return create_client(db, client)
 
-@app.get("/customers/phone/{phone_number}", response_model=Customer)
-def get_customer_by_phone(phone_number: str, db: Session = Depends(get_db)):
-    logger.info(f"Fetching customer with phone number: {phone_number}")
-    customer = get_customer_by_phone_number(db, phone_number)
-    if not customer:
-        raise HTTPException(status_code=404, detail="Customer not found")
-    return customer
+@app.get("/clients/phone/{phone_number}", response_model=Client)
+def get_client_by_phone(phone_number: str, db: Session = Depends(get_db)):
+    logger.info(f"Fetching client with phone number: {phone_number}")
+    client = get_client_by_phone_number(db, phone_number)
+    if not client:
+        raise HTTPException(status_code=404, detail="Client not found")
+    return client
 
-@app.get("/customers/id/{id_number}", response_model=Customer)
-def get_customer_by_id(id_number: str, db: Session = Depends(get_db)):
-    logger.info(f"Fetching customer with ID number: {id_number}")
-    customer = get_customer_by_id_number(db, id_number)
-    if not customer:
-        raise HTTPException(status_code=404, detail="Customer not found")
-    return customer
+@app.get("/clients/id/{id_number}", response_model=Client)
+def get_client_by_id(id_number: str, db: Session = Depends(get_db)):
+    logger.info(f"Fetching client with ID number: {id_number}")
+    client = get_client_by_id_number(db, id_number)
+    if not client:
+        raise HTTPException(status_code=404, detail="Client not found")
+    return client
+
+@app.post("/group_lessons/")
+def create_group_lesson(day: str, time: str, class_name: str, instructor_name: str, db: Session = Depends(get_db)):
+    """
+    Add a group lesson to the table based on day and time
+    """
+    logger.info(f"Adding group lesson: {class_name} with {instructor_name} on {day} at {time}")
+    return add_group_lesson(db, day, time, class_name, instructor_name)
+
+
+@app.get("/group_lessons/", response_model=list[GroupLessonCreate])
+def read_group_lessons(db: Session = Depends(get_db)):
+    """
+    Fetch all group lessons from the database.
+    """
+    logger.info("Fetching all group lessons")
+    lessons = get_all_group_lessons(db)
+    return [GroupLessonSchema.from_orm(lesson) for lesson in lessons]
+
+@app.get("/group_lessons/schedule/", response_model=GroupLessonsResponse)
+def get_schedule(db: Session = Depends(get_db)):
+    """
+    Fetch the schedule of group lessons, organized by day
+    """
+    logger.info("Fetching group lessons schedule")
+    lessons = db.query(GroupLesson).all()  # Use the GroupLesson from models
+
+    # Organize lessons by day
+    schedule = {}
+    for lesson in lessons:
+        if lesson.day not in schedule:
+            schedule[lesson.day] = []
+        schedule[lesson.day].append(
+            GroupLessonCreate(
+                day=lesson.day,
+                time=lesson.time,
+                class_name=lesson.class_name,
+                instructor_name=lesson.instructor_name
+            )
+        )
+    return {"schedule": schedule}
+
+@app.post("/personal_trainings/")
+def create_personal_training(
+    day: str,
+    time: str,
+    trainee_name: str,
+    trainer_name: str,
+    db: Session = Depends(get_db)
+):
+    """
+    Add a personal training session.
+    """
+    logger.info(f"Adding personal training: {trainee_name} with {trainer_name} on {day} at {time}")
+    return add_personal_training(db, day, time, trainee_name, trainer_name)
+
+@app.get("/personal_trainings/schedule/", response_model=WeeklyPersonalTrainingsResponse)
+def get_personal_training_schedule(db: Session = Depends(get_db)):
+    """
+    Fetch the schedule of personal trainings, organized by day
+    """
+    logger.info("Fetching personal training schedule")
+    trainings = db.query(PersonalTraining).all()  # Pull data from the DB
+
+    # Organize trainings by day
+    schedule = {}
+    for training in trainings:
+        if training.day not in schedule:
+            schedule[training.day] = []
+        schedule[training.day].append(
+            PersonalTrainingBase(
+                day=training.day,
+                time=training.time,
+                trainee_name=training.trainee_name,
+                trainer_name=training.trainer_name
+            )
+        )
+    return {"schedule": schedule}

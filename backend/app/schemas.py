@@ -1,5 +1,7 @@
+from typing import List, Dict
 from pydantic import BaseModel
 from typing import Optional
+from enum import Enum
 
 class UserBase(BaseModel):
     username: str
@@ -23,7 +25,6 @@ class InterestedClient(InterestedClientBase):
     class Config:
         orm_mode = True
 
-# Task Schema
 class TaskBase(BaseModel):
     first_name: str
     last_name: str
@@ -37,17 +38,51 @@ class Task(TaskBase):
     class Config:
         orm_mode = True
 
-class CustomerBase(BaseModel):
+class MembershipType(str, Enum):
+    monthly = "Monthly"
+    quarterly = "3-Months"
+    yearly = "Yearly"
+
+class PaymentMethod(str, Enum):
+    cash = "Cash"
+    credit_card = "Credit Card"
+
+class ClientBase(BaseModel):
     first_name: str
     last_name: str
     phone_number: str
     id_number: str
-    subscription_type: Optional[str] = "Monthly"
-    payment_method: Optional[str] = "Cash"
+    membership_type: MembershipType
+    payment_method: PaymentMethod
 
-class CustomerCreate(CustomerBase):
+class ClientCreate(ClientBase):
     pass
 
-class Customer(CustomerBase):
+class Client(ClientBase):
     class Config:
         orm_mode = True
+
+class GroupLessonCreate(BaseModel):
+    day: str
+    time: str
+    class_name: str
+    instructor_name: str
+
+class GroupLessonSchedule(BaseModel):
+    day: str
+    lessons: List[GroupLessonCreate]
+
+class GroupLessonsResponse(BaseModel):
+    schedule: Dict[str, List[GroupLessonCreate]]
+
+class PersonalTrainingBase(BaseModel):
+    day: str
+    time: str
+    trainee_name: str
+    trainer_name: str
+
+class PersonalTrainingCreate(PersonalTrainingBase):
+    pass
+
+class WeeklyPersonalTrainingsResponse(BaseModel):
+    schedule: Dict[str, List[PersonalTrainingBase]]
