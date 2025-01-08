@@ -5,7 +5,7 @@ from sqlalchemy.orm import Session
 from app.database import engine, SessionLocal,get_db
 from app.models import Base, User, InterestedClient, Task, Client,GroupLesson,PersonalTraining
 from typing import List
-from app.schemas import InterestedClientCreate, TaskCreate, Task, ClientCreate, Client, GroupLessonCreate,GroupLessonsResponse,GroupLessonSchedule,PersonalTrainingCreate, WeeklyPersonalTrainingsResponse, PersonalTrainingBase,GymStaffCreate, GymStaffResponse
+from app.schemas import InterestedClientCreate, TaskCreate, Task, ClientCreate, Client, GroupLessonCreate,GroupLessonsResponse,GroupLessonSchedule,PersonalTrainingCreate, WeeklyPersonalTrainingsResponse, PersonalTrainingBase,GymStaffCreate, GymStaffResponse, UserCreate, UserResponse
 from app.crud import (
     get_user_by_username,
     create_user,
@@ -78,6 +78,18 @@ def seed_users():
                 logger.info(f"User created: {user['username']}")
     finally:
         db.close()
+
+@app.post("/users/", response_model=UserResponse)
+def add_user(user: UserCreate, db: Session = Depends(get_db)):
+    """
+    Add a new user to the users table
+    """
+    existing_user = get_user_by_username(db, user.username)  # Check if the username already exists
+    if existing_user:
+        # Raise an error if the username already exists
+        raise HTTPException(status_code=400, detail="Username already exists")
+    return create_user(db, username=user.username, password=user.password)  # Create the new user
+
 
 @app.post("/interested_clients/")
 def add_interested_client(client: InterestedClientCreate, db: Session = Depends(get_db)):
