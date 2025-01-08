@@ -2,6 +2,7 @@ from typing import List, Dict
 from pydantic import BaseModel
 from typing import Optional
 from enum import Enum
+from app.enums import MembershipType, PaymentMethod,RoleType
 
 class UserBase(BaseModel):
     username: str
@@ -40,7 +41,7 @@ class Task(TaskBase):
 
 class MembershipType(str, Enum):
     monthly = "Monthly"
-    quarterly = "3-Months"
+    quarterly = "quarterly"
     yearly = "Yearly"
 
 class PaymentMethod(str, Enum):
@@ -59,6 +60,17 @@ class ClientCreate(ClientBase):
     pass
 
 class Client(ClientBase):
+    class Config:
+        orm_mode = True
+
+class PastClientBase(BaseModel):
+    phone_number: str
+    id_number: str
+    first_name: str
+    last_name: str
+    membership_type: MembershipType
+    payment_method: PaymentMethod
+
     class Config:
         orm_mode = True
 
@@ -86,3 +98,18 @@ class PersonalTrainingCreate(PersonalTrainingBase):
 
 class WeeklyPersonalTrainingsResponse(BaseModel):
     schedule: Dict[str, List[PersonalTrainingBase]]
+
+class GymStaffBase(BaseModel):
+    first_name: str
+    last_name: str
+    role: RoleType
+    phone_number: str
+
+class GymStaffCreate(GymStaffBase):
+    pass
+
+class GymStaffResponse(GymStaffBase):
+    id: int
+
+    class Config:
+        orm_mode = True

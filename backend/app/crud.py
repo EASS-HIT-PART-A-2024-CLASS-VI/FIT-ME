@@ -1,7 +1,8 @@
 import logging
 from sqlalchemy.orm import Session
-from app.models import User, InterestedClient, Task, Client,GroupLesson,PersonalTraining
+from app.models import User, InterestedClient, Task, Client, GroupLesson,PersonalTraining, PastClient,GymStaff
 from app.schemas import InterestedClientCreate, TaskCreate, ClientCreate
+from app.enums import RoleType
 
 logger = logging.getLogger(__name__)
 
@@ -68,8 +69,40 @@ def get_client_by_phone_number(db: Session, phone_number: str):
 def get_client_by_id_number(db: Session, id_number: str):
     return db.query(Client).filter(Client.id_number == id_number).first()
 
-from app.models import GroupLesson
+def move_client_to_past(db: Session, phone_number: str, id_number: str):
+    """
+    Move a client from the 'clients' table to the 'past_clients' table based on phone number and ID number.
+    """
+    # Find the client by phone number and ID number
+    client = db.query(Client).filter(
+        Client.phone_number == phone_number,
+        Client.id_number == id_number
+    ).first()
+    if not client:
+        return None  # Client not found
 
+    # Create a new PastClient entry
+    past_client = PastClient(
+        phone_number=client.phone_number,
+        id_number=client.id_number,
+        first_name=client.first_name,
+        last_name=client.last_name,
+        membership_type=client.membership_type,
+        payment_method=client.payment_method
+    )
+
+    # Add to PastClients and remove from Clients
+    db.add(past_client)
+    db.delete(client)
+    db.commit()
+
+    return past_client
+
+def get_all_past_clients(db: Session):
+    """
+    Fetch all past clients from the database.
+    """
+    return db.query(PastClient).all()
 def add_group_lesson(db: Session, day: str, time: str, class_name: str, instructor_name: str):
     """
     Add a group lesson to the 'group_lessons' table based on day and time
@@ -121,3 +154,24 @@ def get_weekly_personal_trainings(db: Session):
             "trainer_name": training.trainer_name,
         })
     return schedule
+
+def add_gym_staff(db: Session, first_name: str, last_name: str, role: RoleType, phone_number: str):
+    """
+    Add a new staff member to the gym_staff table.
+    """
+    staff_member = GymStaff(
+        first_name=first_name,
+        last_name=last_name,
+        role=role,
+        phone_number=phone_number
+    )
+    db.add(staff_member)
+    db.commit()
+    db.refresh(staff_member)
+    return staff_member
+
+def get_all_gym_staff(db: Session):
+    """
+    Fetch all staff members from the gym_staff table.
+    """
+    return db.query(GymStaff).all()

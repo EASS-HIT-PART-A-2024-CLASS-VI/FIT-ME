@@ -2,9 +2,10 @@ import logging
 from fastapi import FastAPI, HTTPException, Depends
 from pydantic import BaseModel
 from sqlalchemy.orm import Session
-from app.database import engine, SessionLocal
+from app.database import engine, SessionLocal,get_db
 from app.models import Base, User, InterestedClient, Task, Client,GroupLesson,PersonalTraining
-from app.schemas import InterestedClientCreate, TaskCreate, Task, ClientCreate, Client, GroupLessonCreate,GroupLessonsResponse,GroupLessonSchedule,PersonalTrainingCreate, WeeklyPersonalTrainingsResponse, PersonalTrainingBase
+from typing import List
+from app.schemas import InterestedClientCreate, TaskCreate, Task, ClientCreate, Client, GroupLessonCreate,GroupLessonsResponse,GroupLessonSchedule,PersonalTrainingCreate, WeeklyPersonalTrainingsResponse, PersonalTrainingBase,GymStaffCreate, GymStaffResponse
 from app.crud import (
     get_user_by_username,
     create_user,
@@ -20,7 +21,7 @@ from app.crud import (
     get_all_tasks,
     delete_task_by_phone_number,  
 )
-from app.crud import create_client, get_client_by_phone_number, get_client_by_id_number, add_group_lesson, get_all_group_lessons,add_personal_training, get_weekly_personal_trainings
+from app.crud import create_client, get_client_by_phone_number, get_client_by_id_number, add_group_lesson, get_all_group_lessons,add_personal_training, get_weekly_personal_trainings, move_client_to_past, get_all_past_clients,add_gym_staff, get_all_gym_staff
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -226,3 +227,43 @@ def get_personal_training_schedule(db: Session = Depends(get_db)):
             )
         )
     return {"schedule": schedule}
+
+@app.post("/clients/move_to_past/")
+def move_to_past_client(phone_number: str, id_number: str, db: Session = Depends(get_db)):
+    """
+    Move a client to the 'Past Clients' table based on phone number and ID number.
+    """
+    client = move_client_to_past(db, phone_number, id_number)
+    if not client:
+        raise HTTPException(status_code=404, detail="Client not found")
+    return {"message": f"Client {client.first_name} {client.last_name} moved to past clients successfully."}
+
+@app.get("/past_clients/", response_model=List[Client])
+def read_past_clients(db: Session = Depends(get_db)):
+    """
+    Fetch all past clients from the Past Clients table.
+    """
+    logger.info("Fetching all past clients")
+    past_clients = get_all_past_clients(db)
+    return past_clients
+
+
+@app.post("/gym_staff/", response_model=GymStaffResponse)
+def create_gym_staff(staff: GymStaffCreate, db: Session = Depends(get_db)):
+    """
+    Add a new staff member to the database.
+    """
+    return add_gym_staff(
+        db=db,
+        first_name=staff.first_name,
+        last_name=staff.last_name,
+        role=staff.role,
+        phone_number=staff.phone_number
+    )
+
+@app.get("/gym_staff/", response_model=List[GymStaffResponse])
+def read_gym_staff(db: Session = Depends(get_db)):
+    """
+    Fetch all staff members from the database.
+    """
+    return get_all_gym_staff(db)
