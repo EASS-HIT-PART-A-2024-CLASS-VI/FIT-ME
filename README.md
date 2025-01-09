@@ -1,6 +1,6 @@
 # FIT-ME Project
 
-<img align="right" src="READMEPHOTO.jpg" width="200">
+<img align="right" src="READMEPHOTO.jpg" width="200" style="margin-top: -20px; margin-right: -10px;">
 
 ## Overview
 The **FIT-ME** application is a comprehensive gym management system designed to streamline gym operations. It includes features for managing client registrations, handling group and personal training schedules, tracking staff roles, and monitoring task assignments to ensure efficient workflows. The system aims to provide a seamless and user-friendly experience for both gym staff and members.
