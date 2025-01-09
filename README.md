@@ -2,7 +2,10 @@
 
 ## Overview
 The **FIT-ME** application is a comprehensive gym management system designed to streamline gym operations. It includes features for managing client registrations, handling group and personal training schedules, tracking staff roles, and monitoring task assignments to ensure efficient workflows. The system aims to provide a seamless and user-friendly experience for both gym staff and members.
-The backend is built using FastAPI containerized using Docker and communicates with a PostgreSQL database for data management and storage.
+
+The backend is built using FastAPI and containerized using Docker and communicates with a PostgreSQL database for data management and storage.
+
+In the future, this project will also include a frontend designed to interact seamlessly with the backend.
 ---
 
 ## Table of Contents
