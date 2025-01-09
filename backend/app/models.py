@@ -39,7 +39,7 @@ class Client(Base):
     membership_type = Column(Enum(MembershipType), nullable=False)
     payment_method = Column(Enum(PaymentMethod), nullable=False)
 
-    __table_args__ = (PrimaryKeyConstraint('phone_number', 'id_number', name='client_pk'),)
+    __table_args__ = (PrimaryKeyConstraint('phone_number', 'id_number', name='client_pk'),) # phone_number and id_number as primary key
 
 class PastClient(Base):
     __tablename__ = "past_clients"
@@ -58,10 +58,10 @@ class GroupLesson(Base):
 
     day = Column(String, nullable=False)  # Day of the lesson (e.g., Sunday)
     time = Column(String, nullable=False)  # Time of the lesson (e.g., 08:00-08:55)
-    class_name = Column(String, nullable=False)  # Name of the class
+    class_name = Column(String, nullable=False)  # Name of the lesson
     instructor_name = Column(String, nullable=False)  # Name of the instructor
 
-    # Define a composite primary key
+    #day and time together as primary key
     __table_args__ = (
         PrimaryKeyConstraint('day', 'time'),
     )
@@ -69,7 +69,7 @@ class GroupLesson(Base):
 class PersonalTraining(Base):
     __tablename__ = "personal_trainings"
     day = Column(String, nullable=False, primary_key=True)  # Day of the week
-    time = Column(String, nullable=False, primary_key=True)  # Time of the session
+    time = Column(String, nullable=False, primary_key=True)  # Time of the training
     trainee_name = Column(String, nullable=False)  # Name of the trainee
     trainer_name = Column(String, nullable=False)  # Name of the trainer
 
@@ -79,5 +79,5 @@ class GymStaff(Base):
     id = Column(Integer, primary_key=True, autoincrement=True)
     first_name = Column(String, nullable=False)  # First name of the staff member
     last_name = Column(String, nullable=False)  # Last name of the staff member
-    role = Column(Enum(RoleType), nullable=False)  # Role from a predefined list (Enum)
+    role = Column(Enum(RoleType), nullable=False)  # Role from a list of roles (Enum)
     phone_number = Column(String, nullable=False, unique=True)  #Phone number of the staff member
