@@ -1,10 +1,11 @@
 import logging
+from collections import defaultdict
 from fastapi import FastAPI, HTTPException, Depends
 from pydantic import BaseModel
 from sqlalchemy.orm import Session
 from app.database import engine, SessionLocal,get_db
 from app.models import Base, User, InterestedClient, Task, Client,GroupLesson,PersonalTraining
-from typing import List
+from typing import List, Dict
 from app.schemas import InterestedClientCreate, TaskCreate, Task, ClientCreate, Client, GroupLessonCreate,GroupLessonsResponse,GroupLessonSchedule,PersonalTrainingCreate, WeeklyPersonalTrainingsResponse, PersonalTrainingBase,GymStaffCreate, GymStaffResponse, UserCreate, UserResponse
 from app.crud import (
     get_user_by_username,
@@ -102,7 +103,7 @@ def add_interested_client(client: InterestedClientCreate, db: Session = Depends(
     new_client = create_interested_client(db, client)
     
     # Automatically create a task
-    task_description = f"{client.first_name} is interested in a gym membership. Please contact them ASAP."
+    task_description = f"{client.first_name} is interested in a gym membership. Please contact her/him ASAP."
     new_task = TaskCreate(
         first_name=client.first_name,
         last_name=client.last_name,
@@ -163,22 +164,29 @@ def get_client_by_id(id_number: str, db: Session = Depends(get_db)):
     return client
 
 @app.post("/group_lessons/")
-def create_group_lesson(day: str, time: str, class_name: str, instructor_name: str, db: Session = Depends(get_db)):
+def create_group_lesson(
+    group_lesson: GroupLessonCreate,
+    db: Session = Depends(get_db)
+):
     """
     Add a group lesson to the table based on day and time
     """
-    logger.info(f"Adding group lesson: {class_name} with {instructor_name} on {day} at {time}")
-    return add_group_lesson(db, day, time, class_name, instructor_name)
+    logger.info(f"Adding group lesson: {group_lesson.class_name} with {group_lesson.instructor_name} on {group_lesson.day} at {group_lesson.time}")
+    return add_group_lesson(
+        db,
+        group_lesson.day,
+        group_lesson.time,
+        group_lesson.class_name,
+        group_lesson.instructor_name
+    )
 
 
-@app.get("/group_lessons/", response_model=list[GroupLessonCreate])
+
+@app.get("/group_lessons/", response_model=List[GroupLessonSchedule])
 def read_group_lessons(db: Session = Depends(get_db)):
-    """
-    Fetch all group lessons from the database.
-    """
-    logger.info("Fetching all group lessons")
-    lessons = get_all_group_lessons(db)
-    return [GroupLessonSchema.from_orm(lesson) for lesson in lessons]
+    lessons = db.query(GroupLesson).all()  
+    return [GroupLessonSchedule.from_orm(lesson) for lesson in lessons]
+
 
 @app.get("/group_lessons/schedule/", response_model=GroupLessonsResponse)
 def get_schedule(db: Session = Depends(get_db)):
@@ -203,19 +211,20 @@ def get_schedule(db: Session = Depends(get_db)):
         )
     return {"schedule": schedule}
 
+
 @app.post("/personal_trainings/")
-def create_personal_training(
-    day: str,
-    time: str,
-    trainee_name: str,
-    trainer_name: str,
-    db: Session = Depends(get_db)
-):
+def create_personal_training(training: PersonalTrainingCreate, db: Session = Depends(get_db)):
     """
     Add a personal training session.
     """
-    logger.info(f"Adding personal training: {trainee_name} with {trainer_name} on {day} at {time}")
-    return add_personal_training(db, day, time, trainee_name, trainer_name)
+    logger.info(f"Received personal training data: {training.dict()}") 
+    return add_personal_training(
+        db=db,
+        day=training.day,
+        time=training.time,
+        trainee_name=training.trainee_name,
+        trainer_name=training.trainer_name
+    )
 
 @app.get("/personal_trainings/schedule/", response_model=WeeklyPersonalTrainingsResponse)
 def get_personal_training_schedule(db: Session = Depends(get_db)):
@@ -278,4 +287,5 @@ def read_gym_staff(db: Session = Depends(get_db)):
     """
     Fetch all staff members from the database.
     """
-    return get_all_gym_staff(db)
+    staff = get_all_gym_staff(db)
+    return staff

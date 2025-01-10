@@ -36,8 +36,8 @@ class Client(Base):
     id_number = Column(String, nullable=False)
     first_name = Column(String, nullable=False)
     last_name = Column(String, nullable=False)
-    membership_type = Column(Enum(MembershipType), nullable=False)
-    payment_method = Column(Enum(PaymentMethod), nullable=False)
+    membership_type = Column(String, nullable=False)
+    payment_method = Column(String, nullable=False)
 
     __table_args__ = (PrimaryKeyConstraint('phone_number', 'id_number', name='client_pk'),) # phone_number and id_number as primary key
 
@@ -79,5 +79,5 @@ class GymStaff(Base):
     id = Column(Integer, primary_key=True, autoincrement=True)
     first_name = Column(String, nullable=False)  # First name of the staff member
     last_name = Column(String, nullable=False)  # Last name of the staff member
-    role = Column(Enum(RoleType), nullable=False)  # Role from a list of roles (Enum)
+    role = Column(String, nullable=False)
     phone_number = Column(String, nullable=False, unique=True)  #Phone number of the staff member

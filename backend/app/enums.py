@@ -1,15 +1,15 @@
 from enum import Enum
 
-class MembershipType(Enum):
-    monthly = "Monthly"
+class MembershipType(str, Enum): 
+    monthly = "monthly"
     quarterly = "quarterly"
-    yearly = "Yearly"
+    yearly = "yearly"
 
-class PaymentMethod(Enum):
-    credit_card = "Credit Card"
-    cash = "Cash"
+class PaymentMethod(str, Enum):  
+    credit_card = "credit card"
+    cash = "cash"
 
-class RoleType(Enum):
-    TRAINER = "trainer"
-    MANAGER = "manager"
-    SECRETARY = "secretary"
+class RoleType(str, Enum):
+    trainer = "trainer"
+    manager = "manager"
+    secretary = "secretary"

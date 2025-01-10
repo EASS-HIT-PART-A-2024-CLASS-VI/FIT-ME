@@ -56,12 +56,18 @@ def delete_task_by_phone_number(db: Session, phone_number: str):
 
 def create_client(db: Session, client: ClientCreate):
     logger.info(f"Creating new client: {client}")
-    new_client = Client(**client.dict())
+    new_client = Client(
+        phone_number=client.phone_number,
+        id_number=client.id_number,
+        first_name=client.first_name,
+        last_name=client.last_name,
+        membership_type=client.membership_type.value,  
+        payment_method=client.payment_method.value     
+    )
     db.add(new_client)
     db.commit()
     logger.info(f"Client created: {new_client}")
     return new_client
-
 
 def get_client_by_phone_number(db: Session, phone_number: str):
     return db.query(Client).filter(Client.phone_number == phone_number).first()
@@ -87,8 +93,8 @@ def move_client_to_past(db: Session, phone_number: str, id_number: str):
         id_number=client.id_number,
         first_name=client.first_name,
         last_name=client.last_name,
-        membership_type=client.membership_type,
-        payment_method=client.payment_method
+        membership_type=client.membership_type.value,
+        payment_method=client.payment_method.value
     )
 
     # Add to PastClients and remove from Clients
@@ -119,10 +125,16 @@ def add_group_lesson(db: Session, day: str, time: str, class_name: str, instruct
     return group_lesson  # Return the newly added lesson
 
 def get_all_group_lessons(db: Session):
-    """
-    Retrieve all group lessons from the table
-    """
-    return db.query(GroupLesson).all()  # Query all lessons from the database
+    lessons = db.query(GroupLesson).all()
+    return [
+        {
+            "day": lesson.day,
+            "time": lesson.time,
+            "class_name": lesson.class_name,
+            "instructor_name": lesson.instructor_name,
+        }
+        for lesson in lessons
+    ]
 
 def add_personal_training(db: Session, day: str, time: str, trainee_name: str, trainer_name: str):
     """
@@ -160,11 +172,11 @@ def add_gym_staff(db: Session, first_name: str, last_name: str, role: RoleType, 
     Add a new staff member to the gym_staff table.
     """
     staff_member = GymStaff(
-        first_name=first_name,
-        last_name=last_name,
-        role=role,
-        phone_number=phone_number
-    )
+    first_name=first_name,
+    last_name=last_name,
+    role=role.value if isinstance(role, RoleType) else role, 
+    phone_number=phone_number
+)
     db.add(staff_member)
     db.commit()
     db.refresh(staff_member)
@@ -174,4 +186,14 @@ def get_all_gym_staff(db: Session):
     """
     Fetch all staff members from the gym_staff table.
     """
-    return db.query(GymStaff).all()
+    staff = db.query(GymStaff).all()
+    return [
+        {
+            "id": member.id,  # Include the `id` field
+            "first_name": member.first_name,
+            "last_name": member.last_name,
+            "role": member.role.value if isinstance(member.role, RoleType) else member.role,
+            "phone_number": member.phone_number
+        }
+        for member in staff
+    ]

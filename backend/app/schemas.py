@@ -1,5 +1,5 @@
 from typing import List, Dict
-from pydantic import BaseModel
+from pydantic import BaseModel,Field
 from typing import Optional
 from enum import Enum
 from app.enums import MembershipType, PaymentMethod,RoleType
@@ -40,13 +40,13 @@ class Task(TaskBase):
         orm_mode = True
 
 class MembershipType(str, Enum):
-    monthly = "Monthly"
+    monthly = "monthly"
     quarterly = "quarterly"
-    yearly = "Yearly"
+    yearly = "yearly"
 
 class PaymentMethod(str, Enum):
-    cash = "Cash"
-    credit_card = "Credit Card"
+    cash = "cash"
+    credit_card = "credit card"
 
 class ClientBase(BaseModel):
     first_name: str
@@ -80,18 +80,32 @@ class GroupLessonCreate(BaseModel):
     class_name: str
     instructor_name: str
 
-class GroupLessonSchedule(BaseModel):
-    day: str
-    lessons: List[GroupLessonCreate]
+    class Config:
+        orm_mode = True
+        from_attributes = True
 
 class GroupLessonsResponse(BaseModel):
     schedule: Dict[str, List[GroupLessonCreate]]
+
+    class Config:
+        orm_mode = True
+        from_attributes = True
+
+class GroupLessonSchedule(BaseModel):
+    day: str
+    lessons: List[GroupLessonCreate]
+    
+    class Config:
+       orm_mode = True 
+       from_attributes = True 
 
 class PersonalTrainingBase(BaseModel):
     day: str
     time: str
     trainee_name: str
     trainer_name: str
+    class Config:
+        orm_mode = True
 
 class PersonalTrainingCreate(PersonalTrainingBase):
     pass
