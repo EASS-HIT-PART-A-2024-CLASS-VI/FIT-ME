@@ -61,8 +61,8 @@ def create_client(db: Session, client: ClientCreate):
         id_number=client.id_number,
         first_name=client.first_name,
         last_name=client.last_name,
-        membership_type=client.membership_type.value,  
-        payment_method=client.payment_method.value     
+        membership_type=client.membership_type,  
+        payment_method=client.payment_method
     )
     db.add(new_client)
     db.commit()
@@ -93,8 +93,8 @@ def move_client_to_past(db: Session, phone_number: str, id_number: str):
         id_number=client.id_number,
         first_name=client.first_name,
         last_name=client.last_name,
-        membership_type=client.membership_type.value,
-        payment_method=client.payment_method.value
+        membership_type=client.membership_type,
+        payment_method=client.payment_method
     )
 
     # Add to PastClients and remove from Clients

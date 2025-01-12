@@ -50,3 +50,44 @@ def client_management_services():
             st.json(client)
         else:
             st.error("Client not found or an error occurred.")
+
+
+    # Subheader for moving client to past clients
+    st.subheader("Move Client to Past Clients")
+    past_phone_number = st.text_input("Enter Phone Number to Move")
+    past_id_number = st.text_input("Enter ID Number to Move")
+    if st.button("Move to Past Clients"):
+        # Send the phone_number and id_number as query parameters
+        response = requests.post(
+            f"{API_URL}/clients/move_to_past/",
+            params={  # Use 'params' to send query string parameters
+                "phone_number": past_phone_number,
+                "id_number": past_id_number,
+            }
+        )
+        # Handle response
+        if response.status_code == 200:
+            st.success("Client moved to past clients successfully!")
+        else:
+            st.error(f"Error: {response.text}")
+
+    # Subheader for past customer archive
+    st.subheader("Past Customer Archive")
+    search_past_phone = st.text_input("Enter Phone Number to Search Past Customer")
+    if st.button("Search Past Customer"):
+        # Fetch all past clients
+        response = requests.get(f"{API_URL}/past_clients/")
+        if response.status_code == 200:
+            past_clients = response.json()
+            found = False
+            # Search for a specific client by phone number
+            for client in past_clients:
+                if client["phone_number"] == search_past_phone:
+                    st.json(client)
+                    found = True
+                    break
+            if not found:
+                st.warning("Past customer not found.")
+        else:
+            st.error(f"Error: {response.text}")
+

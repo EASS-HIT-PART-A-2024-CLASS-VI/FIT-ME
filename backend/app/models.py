@@ -44,14 +44,17 @@ class Client(Base):
 class PastClient(Base):
     __tablename__ = "past_clients"
 
-    phone_number = Column(String, nullable=False)
-    id_number = Column(String, nullable=False)
-    first_name = Column(String, nullable=False)
-    last_name = Column(String, nullable=False)
-    membership_type = Column(Enum(MembershipType), nullable=False)
-    payment_method = Column(Enum(PaymentMethod), nullable=False)
+    phone_number = Column(String, nullable=False)  # Phone number
+    id_number = Column(String, nullable=False)  # ID number
+    first_name = Column(String, nullable=False)  # First name
+    last_name = Column(String, nullable=False)  # Last name
+    membership_type = Column(String, nullable=False)  # Membership type as TEXT
+    payment_method = Column(String, nullable=False)  # Payment method as TEXT
 
-    __table_args__ = (PrimaryKeyConstraint('phone_number', 'id_number', name="past_clients_pk"),)
+    __table_args__ = (
+        PrimaryKeyConstraint('phone_number', 'id_number', name="past_clients_pk"),  # Composite primary key
+    )
+
 
 class GroupLesson(Base):
     __tablename__ = "group_lessons"

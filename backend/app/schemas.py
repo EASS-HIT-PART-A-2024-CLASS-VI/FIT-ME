@@ -39,22 +39,13 @@ class Task(TaskBase):
     class Config:
         orm_mode = True
 
-class MembershipType(str, Enum):
-    monthly = "monthly"
-    quarterly = "quarterly"
-    yearly = "yearly"
-
-class PaymentMethod(str, Enum):
-    cash = "cash"
-    credit_card = "credit card"
-
 class ClientBase(BaseModel):
     first_name: str
     last_name: str
     phone_number: str
     id_number: str
-    membership_type: MembershipType
-    payment_method: PaymentMethod
+    membership_type: str
+    payment_method: str
 
 class ClientCreate(ClientBase):
     pass
@@ -68,8 +59,8 @@ class PastClientBase(BaseModel):
     id_number: str
     first_name: str
     last_name: str
-    membership_type: MembershipType
-    payment_method: PaymentMethod
+    membership_type: str
+    payment_method: str
 
     class Config:
         orm_mode = True
