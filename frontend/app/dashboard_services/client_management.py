@@ -29,65 +29,69 @@ def client_management_services():
         else:
             st.error(f"Error: {response.text}")
 
-    # Button 2: Search Client by ID
-    st.subheader("Search Client by ID")
-    search_id = st.text_input("Enter ID Number to Search")
-    if st.button("Search by ID"):
-        response = requests.get(f"{API_URL}/clients/id/{search_id}")
-        if response.status_code == 200:
-            client = response.json()
-            st.json(client)
-        else:
-            st.error("Client not found or an error occurred.")
+    col1, col2 = st.columns(2)
 
-    # Button 3: Search Client by Phone Number
-    st.subheader("Search Client by Phone Number")
-    search_phone = st.text_input("Enter Phone Number to Search")
-    if st.button("Search by Phone"):
-        response = requests.get(f"{API_URL}/clients/phone/{search_phone}")
-        if response.status_code == 200:
-            client = response.json()
-            st.json(client)
-        else:
-            st.error("Client not found or an error occurred.")
+    with col1:
+        st.subheader("Search Client by ID")
+        search_id = st.text_input("Enter ID Number to Search")
+        if st.button("Search by ID"):
+            response = requests.get(f"{API_URL}/clients/id/{search_id}")
+            if response.status_code == 200:
+                client = response.json()
+                st.json(client)
+            else:
+                st.error("Client not found or an error occurred.")
+
+    with col2:
+        st.subheader("Search Client by Phone Number")
+        search_phone = st.text_input("Enter Phone Number to Search")
+        if st.button("Search by Phone"):
+            response = requests.get(f"{API_URL}/clients/phone/{search_phone}")
+            if response.status_code == 200:
+                client = response.json()
+                st.json(client)
+            else:
+                st.error("Client not found or an error occurred.")
+
+    col3, col4 = st.columns(2)
+
+    # Move Client to Past Clients
+    col3, col4 = st.columns(2)
 
 
-    # Subheader for moving client to past clients
-    st.subheader("Move Client to Past Clients")
-    past_phone_number = st.text_input("Enter Phone Number to Move")
-    past_id_number = st.text_input("Enter ID Number to Move")
-    if st.button("Move to Past Clients"):
-        # Send the phone_number and id_number as query parameters
-        response = requests.post(
-            f"{API_URL}/clients/move_to_past/",
-            params={  # Use 'params' to send query string parameters
-                "phone_number": past_phone_number,
-                "id_number": past_id_number,
-            }
-        )
-        # Handle response
-        if response.status_code == 200:
-            st.success("Client moved to past clients successfully!")
-        else:
-            st.error(f"Error: {response.text}")
+    with col3:
+        st.subheader("Move Client to Past Clients")
+        past_phone_number = st.text_input("Enter Phone Number to Move")
+        past_id_number = st.text_input("Enter ID Number to Move")
+        if st.button("Move to Past Clients"):
+            response = requests.post(
+                f"{API_URL}/clients/move_to_past/",
+                params={
+                     "phone_number": past_phone_number,
+                     "id_number": past_id_number,
+                }
+            )
+            if response.status_code == 200:
+                st.success("Client moved to past clients successfully!")
+            else:
+                st.error(f"Error: {response.text}")
 
-    # Subheader for past customer archive
-    st.subheader("Past Customer Archive")
-    search_past_phone = st.text_input("Enter Phone Number to Search Past Customer")
-    if st.button("Search Past Customer"):
-        # Fetch all past clients
-        response = requests.get(f"{API_URL}/past_clients/")
-        if response.status_code == 200:
-            past_clients = response.json()
-            found = False
-            # Search for a specific client by phone number
-            for client in past_clients:
-                if client["phone_number"] == search_past_phone:
-                    st.json(client)
-                    found = True
-                    break
-            if not found:
-                st.warning("Past customer not found.")
-        else:
-            st.error(f"Error: {response.text}")
+    with col4:
+        st.subheader("Past Customer Archive")
+        search_past_phone = st.text_input("Enter Phone Number to Search Past Customer")
+        if st.button("Search Past Customer"):
+            response = requests.get(f"{API_URL}/past_clients/")
+            if response.status_code == 200:
+                past_clients = response.json()
+                found = False
+                for client in past_clients:
+                    if client["phone_number"] == search_past_phone:
+                       st.json(client)
+                       found = True
+                       break
+                if not found:
+                    st.warning("Past customer not found.")
+            else:
+                st.error(f"Error: {response.text}")
+
 
