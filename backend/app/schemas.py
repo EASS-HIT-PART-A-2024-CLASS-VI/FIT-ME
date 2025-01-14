@@ -85,7 +85,7 @@ class GroupLessonsResponse(BaseModel):
 class GroupLessonSchedule(BaseModel):
     day: str
     lessons: List[GroupLessonCreate]
-    
+
     class Config:
        orm_mode = True 
        from_attributes = True 

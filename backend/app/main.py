@@ -1,4 +1,5 @@
 import logging
+from datetime import datetime
 from collections import defaultdict
 from fastapi import FastAPI, HTTPException, Depends
 from pydantic import BaseModel
@@ -98,10 +99,10 @@ def add_interested_client(client: InterestedClientCreate, db: Session = Depends(
     Add a new interested client to the 'interested_clients' table and automatically add a task to the 'tasks' table.
     """
     logger.info(f"Adding interested client: {client.first_name} {client.last_name}")
-    
+
     # Add interested client to the table
     new_client = create_interested_client(db, client)
-    
+
     # Automatically create a task
     task_description = f"{client.first_name} is interested in a gym membership. Please contact her/him ASAP."
     new_task = TaskCreate(
@@ -181,35 +182,56 @@ def create_group_lesson(
     )
 
 
-
 @app.get("/group_lessons/", response_model=List[GroupLessonSchedule])
 def read_group_lessons(db: Session = Depends(get_db)):
-    lessons = db.query(GroupLesson).all()  
+    lessons = db.query(GroupLesson).all()
     return [GroupLessonSchedule.from_orm(lesson) for lesson in lessons]
 
 
 @app.get("/group_lessons/schedule/", response_model=GroupLessonsResponse)
 def get_schedule(db: Session = Depends(get_db)):
     """
-    Fetch the schedule of group lessons, organized by day
+    Fetch the schedule of group lessons, organized by day and sorted by time.
     """
     logger.info("Fetching group lessons schedule")
-    lessons = db.query(GroupLesson).all()  # Use the GroupLesson from models
+    lessons = db.query(GroupLesson).all()
 
-    # Organize lessons by day
     schedule = {}
     for lesson in lessons:
         if lesson.day not in schedule:
             schedule[lesson.day] = []
         schedule[lesson.day].append(
-            GroupLessonCreate(
-                day=lesson.day,
-                time=lesson.time,
-                class_name=lesson.class_name,
-                instructor_name=lesson.instructor_name
-            )
+            {
+                "day": lesson.day,
+                "time": lesson.time,
+                "class_name": lesson.class_name,
+                "instructor_name": lesson.instructor_name
+            }
         )
+
+    for day in schedule:
+        schedule[day] = sorted(
+            schedule[day],
+            key=lambda x: datetime.strptime(x["time"].split("-")[0], "%H:%M")
+        )
+
     return {"schedule": schedule}
+
+@app.delete("/group_lessons/")
+def delete_group_lesson(day: str, time: str, db: Session = Depends(get_db)):
+    """
+    Delete a group lesson based on day and time.
+    """
+    logger.info(f"Attempting to delete group lesson: day={day}, time={time}")
+    lesson = db.query(GroupLesson).filter(GroupLesson.day == day, GroupLesson.time == time).first()
+    if not lesson:
+        logger.warning(f"Group lesson not found: day={day}, time={time}")
+        raise HTTPException(status_code=404, detail="Group lesson not found")
+
+    db.delete(lesson)
+    db.commit()
+    logger.info(f"Group lesson deleted successfully: day={day}, time={time}")
+    return {"message": "Group lesson deleted successfully"}
 
 
 @app.post("/personal_trainings/")

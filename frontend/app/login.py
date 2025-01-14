@@ -2,7 +2,7 @@ import streamlit as st
 import base64
 import os
 import requests
-from app.dashboard import dashboard_page  # Import the dashboard page function
+from app.dashboard import dashboard_page
 
 # URL of the backend API
 API_URL = "http://backend:8000"
@@ -32,15 +32,12 @@ def add_background():
 
 def login_page():
     """Render the login page."""
-    # Add the background
     add_background()
-    # Title for the login page
     st.markdown(
         "<h1 style='text-align: center; color: white;'>Login to Fit-Me Manage Gym System</h1>",
         unsafe_allow_html=True
     )
 
-    # Use session state to manage username and password
     if "username" not in st.session_state:
         st.session_state["username"] = ""
     if "password" not in st.session_state:

@@ -15,16 +15,12 @@ def dashboard_page():
     st.subheader("Choose a Service")
     col1, col2, col3, col4 = st.columns(4)
 
-    # Button for "Client Management"
     with col1:
         if st.button("Client Management"):
             st.session_state["dashboard_selected_service"] = "client_management"
-
-    # Button for "Add an Interested Client"
     with col2:
         if st.button("Add an Interested Client"):
             st.session_state["dashboard_selected_service"] = "add_interested_client"
-    
     with col3:
         if st.button("Tasks Management"):
             st.session_state["dashboard_selected_service"] = "task_management"
