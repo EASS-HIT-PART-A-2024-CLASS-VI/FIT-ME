@@ -2,7 +2,6 @@ import logging
 from sqlalchemy.orm import Session
 from app.models import User, InterestedClient, Task, Client, GroupLesson,PersonalTraining, PastClient,GymStaff
 from app.schemas import InterestedClientCreate, TaskCreate, ClientCreate
-from app.enums import RoleType
 
 logger = logging.getLogger(__name__)
 
@@ -167,16 +166,16 @@ def get_weekly_personal_trainings(db: Session):
         })
     return schedule
 
-def add_gym_staff(db: Session, first_name: str, last_name: str, role: RoleType, phone_number: str):
+def add_gym_staff(db: Session, first_name: str, last_name: str, role: str, phone_number: str):
     """
     Add a new staff member to the gym_staff table.
     """
     staff_member = GymStaff(
-    first_name=first_name,
-    last_name=last_name,
-    role=role.value if isinstance(role, RoleType) else role, 
-    phone_number=phone_number
-)
+        first_name=first_name,
+        last_name=last_name,
+        role=role,  # Use role as a string
+        phone_number=phone_number
+    )
     db.add(staff_member)
     db.commit()
     db.refresh(staff_member)
@@ -192,8 +191,9 @@ def get_all_gym_staff(db: Session):
             "id": member.id,  # Include the `id` field
             "first_name": member.first_name,
             "last_name": member.last_name,
-            "role": member.role.value if isinstance(member.role, RoleType) else member.role,
+            "role": member.role,  # Use role as a string
             "phone_number": member.phone_number
         }
         for member in staff
     ]
+

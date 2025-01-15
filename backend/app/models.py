@@ -2,7 +2,6 @@ from sqlalchemy import Column, String, Integer, Enum, PrimaryKeyConstraint, Time
 from app.database import Base
 from sqlalchemy.orm import relationship
 from app.schemas import MembershipType, PaymentMethod
-from app.enums import MembershipType, PaymentMethod,RoleType
 
 class User(Base):
     __tablename__ = "users"
@@ -71,10 +70,15 @@ class GroupLesson(Base):
 
 class PersonalTraining(Base):
     __tablename__ = "personal_trainings"
-    day = Column(String, nullable=False, primary_key=True)  # Day of the week
-    time = Column(String, nullable=False, primary_key=True)  # Time of the training
-    trainee_name = Column(String, nullable=False)  # Name of the trainee
-    trainer_name = Column(String, nullable=False)  # Name of the trainer
+
+    day = Column(String, nullable=False)
+    time = Column(String, nullable=False)
+    trainee_name = Column(String, nullable=False)
+    trainer_name = Column(String, nullable=False)
+
+    __table_args__ = (
+        PrimaryKeyConstraint('trainer_name', 'day', 'time', name='personal_training_pk'),
+    )
 
 class GymStaff(Base):
     __tablename__ = "gym_staff"

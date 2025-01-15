@@ -107,7 +107,7 @@ class WeeklyPersonalTrainingsResponse(BaseModel):
 class GymStaffBase(BaseModel):
     first_name: str
     last_name: str
-    role: RoleType
+    role: str
     phone_number: str
 
 class GymStaffCreate(GymStaffBase):

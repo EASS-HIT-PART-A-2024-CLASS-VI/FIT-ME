@@ -5,7 +5,7 @@ from fastapi import FastAPI, HTTPException, Depends
 from pydantic import BaseModel
 from sqlalchemy.orm import Session
 from app.database import engine, SessionLocal,get_db
-from app.models import Base, User, InterestedClient, Task, Client,GroupLesson,PersonalTraining
+from app.models import Base, User, InterestedClient, Task, Client,GroupLesson,PersonalTraining,GymStaff
 from typing import List, Dict
 from app.schemas import InterestedClientCreate, TaskCreate, Task, ClientCreate, Client, GroupLessonCreate,GroupLessonsResponse,GroupLessonSchedule,PersonalTrainingCreate, WeeklyPersonalTrainingsResponse, PersonalTrainingBase,GymStaffCreate, GymStaffResponse, UserCreate, UserResponse
 from app.crud import (
@@ -251,25 +251,54 @@ def create_personal_training(training: PersonalTrainingCreate, db: Session = Dep
 @app.get("/personal_trainings/schedule/", response_model=WeeklyPersonalTrainingsResponse)
 def get_personal_training_schedule(db: Session = Depends(get_db)):
     """
-    Fetch the schedule of personal trainings, organized by day
+    Fetch the schedule of personal trainings, organized by day and sorted by time.
     """
     logger.info("Fetching personal training schedule")
-    trainings = db.query(PersonalTraining).all()  # Pull data from the DB
+    trainings = db.query(PersonalTraining).all()
 
-    # Organize trainings by day
+    # Organize and sort trainings by day and time
     schedule = {}
     for training in trainings:
         if training.day not in schedule:
             schedule[training.day] = []
         schedule[training.day].append(
-            PersonalTrainingBase(
-                day=training.day,
-                time=training.time,
-                trainee_name=training.trainee_name,
-                trainer_name=training.trainer_name
-            )
+            {
+                "day": training.day,
+                "time": training.time,
+                "trainee_name": training.trainee_name,
+                "trainer_name": training.trainer_name
+            }
         )
+
+    for day in schedule:
+        schedule[day] = sorted(
+            schedule[day],
+            key=lambda x: datetime.strptime(x["time"].split("-")[0], "%H:%M")
+        )
+
     return {"schedule": schedule}
+
+@app.delete("/personal_trainings/", status_code=204)
+def delete_personal_training(trainer_name: str, day: str, time: str, db: Session = Depends(get_db)):
+    """
+    Delete a personal training session by trainer, day, and time.
+    """
+    logger.info(f"Deleting personal training by {trainer_name} on {day} at {time}")
+    training = db.query(PersonalTraining).filter(
+        PersonalTraining.trainer_name == trainer_name,
+        PersonalTraining.day == day.lower(),
+        PersonalTraining.time == time
+    ).first()
+
+    if not training:
+        logger.warning(f"Personal training by {trainer_name} on {day} at {time} not found.")
+        raise HTTPException(status_code=404, detail="Personal training not found")
+
+    db.delete(training)
+    db.commit()
+    logger.info(f"Personal training by {trainer_name} on {day} at {time} deleted successfully.")
+    return {"message": "Personal training deleted successfully"}
+
 
 @app.post("/clients/move_to_past/")
 def move_to_past_client(phone_number: str, id_number: str, db: Session = Depends(get_db)):
@@ -311,3 +340,15 @@ def read_gym_staff(db: Session = Depends(get_db)):
     """
     staff = get_all_gym_staff(db)
     return staff
+
+@app.delete("/gym_staff/{staff_id}")
+def delete_staff(staff_id: int, db: Session = Depends(get_db)):
+    """
+    Delete a staff member from the gym_staff table.
+    """
+    staff_member = db.query(GymStaff).filter(GymStaff.id == staff_id).first()
+    if not staff_member:
+        raise HTTPException(status_code=404, detail="Staff member not found")
+    db.delete(staff_member)
+    db.commit()
+    return {"message": "Staff member deleted successfully"}

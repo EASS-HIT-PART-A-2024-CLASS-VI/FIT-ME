@@ -7,7 +7,6 @@ def client_management_services():
     """Render the Client Management services."""
     st.header("Client Management")
 
-    # Button 1: Register New Client
     st.subheader("Register New Client")
     first_name = st.text_input("First Name", key="dashboard_first_name")
     last_name = st.text_input("Last Name", key="dashboard_last_name")
@@ -55,7 +54,6 @@ def client_management_services():
 
     col3, col4 = st.columns(2)
 
-    # Move Client to Past Clients
     col3, col4 = st.columns(2)
 
 
