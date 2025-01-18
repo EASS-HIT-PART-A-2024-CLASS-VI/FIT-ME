@@ -15,7 +15,8 @@ def gym_staff_page():
         if response.status_code == 200:
             staff_members = response.json()
             for member in staff_members:
-                st.write(f"- {member['first_name']} {member['last_name']} ({member['role']}) - Phone: {member['phone_number']}")
+                emoji = "🧑‍💼" if member["role"] == "Manager" else "🏋️" if member["role"] == "Trainer" else "🖥️"
+                st.write(f"- {emoji} **{member['first_name']} {member['last_name']}** ({member['role']}) - Phone: {member['phone_number']}")
         else:
             st.error("Failed to fetch staff members.")
 

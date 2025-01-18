@@ -37,7 +37,14 @@ def client_management_services():
             response = requests.get(f"{API_URL}/clients/id/{search_id}")
             if response.status_code == 200:
                 client = response.json()
-                st.json(client)
+                st.markdown(f"""
+                ### Client Details
+                - **Name:** {client['first_name']} {client['last_name']} 👤
+                - **Phone:** {client['phone_number']} 📞
+                - **ID Number:** {client['id_number']} 🔑
+                - **Membership:** {client['membership_type']} 🗓️
+                - **Payment Method:** {client['payment_method']} 💳
+                """)
             else:
                 st.error("Client not found or an error occurred.")
 
@@ -48,7 +55,14 @@ def client_management_services():
             response = requests.get(f"{API_URL}/clients/phone/{search_phone}")
             if response.status_code == 200:
                 client = response.json()
-                st.json(client)
+                st.markdown(f"""
+                ### Client Details
+                - **Name:** {client['first_name']} {client['last_name']} 👤
+                - **Phone:** {client['phone_number']} 📞
+                - **ID Number:** {client['id_number']} 🔑
+                - **Membership:** {client['membership_type']} 🗓️
+                - **Payment Method:** {client['payment_method']} 💳
+                """)
             else:
                 st.error("Client not found or an error occurred.")
 
@@ -84,12 +98,20 @@ def client_management_services():
                 found = False
                 for client in past_clients:
                     if client["phone_number"] == search_past_phone:
-                       st.json(client)
-                       found = True
-                       break
+                        st.markdown(f"""
+                        ### Past Client Details
+                        - **Name:** {client['first_name']} {client['last_name']} 🧑‍💼
+                        - **Phone:** {client['phone_number']} 📞
+                        - **ID Number:** {client['id_number']} 🔑
+                        - **Membership:** {client['membership_type']} 🗓️
+                        - **Payment Method:** {client['payment_method']} 💳
+                        """)
+                        found = True
+                        break
                 if not found:
                     st.warning("Past customer not found.")
             else:
                 st.error(f"Error: {response.text}")
+
 
 
