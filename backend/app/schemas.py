@@ -1,8 +1,6 @@
 from typing import List, Dict
 from pydantic import BaseModel,Field
 from typing import Optional
-from enum import Enum
-from app.enums import MembershipType, PaymentMethod,RoleType
 
 class UserBase(BaseModel):
     username: str

@@ -21,14 +21,26 @@ def add_background():
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
-            height: 100vh; /* Set height to full viewport */
+            height: 100vh; /* Full viewport height */
+        }}
+        .label {{
+            font-size: 20px;  /* Set label font size */
+            font-weight: bold;  /* Set label font weight */
+            color: white;  /* Set label color */
+            margin-bottom: 2px; /* Reduce spacing between label and input */
+        }}
+        .stTextInput > div {{
+            margin: 0 auto; /* Center the input fields */
+            width: 50%; /* Adjust input width */
+        }}
+        .stButton > button {{
+            margin: 20px auto; /* Center the login button */
+            display: block; /* Center the button */
         }}
         </style>
         """,
         unsafe_allow_html=True
     )
-
-
 
 def login_page():
     """Render the login page."""
@@ -38,21 +50,29 @@ def login_page():
         unsafe_allow_html=True
     )
 
-    if "username" not in st.session_state:
-        st.session_state["username"] = ""
-    if "password" not in st.session_state:
-        st.session_state["password"] = ""
+    # Username label and input
+    st.markdown("<div class='label'>Username</div>", unsafe_allow_html=True)
+    username = st.text_input(
+        "Username",  # תווית לא ריקה עבור נגישות
+        label_visibility="collapsed",  # מחביא את התווית המובנית
+        key="login_username"
+    )
 
-    # Input fields for username and password
-    st.session_state["username"] = st.text_input("Username", key=f"login_username_{id(st.session_state)}")
-    st.session_state["password"] = st.text_input("Password", type="password", key=f"login_password_{id(st.session_state)}")
+    # Password label and input
+    st.markdown("<div class='label'>Password</div>", unsafe_allow_html=True)
+    password = st.text_input(
+        "Password",  # תווית לא ריקה עבור נגישות
+        label_visibility="collapsed",  # מחביא את התווית המובנית
+        type="password",
+        key="login_password"
+    )
 
-    if st.button("Login", key=f"login_button_{id(st.session_state)}"):
-        if st.session_state["username"] and st.session_state["password"]:
-            # Send login request to the backend
+    # Login button
+    if st.button("Login", key="login_button"):
+        if username and password:
             response = requests.post(f"{API_URL}/login/", json={
-                "username": st.session_state["username"],
-                "password": st.session_state["password"]
+                "username": username,
+                "password": password
             })
             if response.status_code == 200:
                 st.session_state["logged_in"] = True
@@ -62,4 +82,3 @@ def login_page():
                 st.error("Invalid username or password")
         else:
             st.warning("Please enter both username and password.")
-

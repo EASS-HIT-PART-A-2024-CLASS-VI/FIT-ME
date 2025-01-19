@@ -17,7 +17,7 @@ def task_management_page():
             if tasks:
                 for task in tasks:
                     st.markdown(
-                        f"📝 **{task['first_name']} {task['last_name']}** - {task['description']} (Phone: {task['phone_number']})"
+                        f"📝 **{task['first_name']} {task['last_name']} - {task['description']} (Phone: {task['phone_number']}**)"
                     )
             else:
                 st.info("No tasks available.")

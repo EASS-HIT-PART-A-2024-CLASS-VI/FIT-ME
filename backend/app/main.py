@@ -196,10 +196,10 @@ def get_schedule(db: Session = Depends(get_db)):
     logger.info("Fetching group lessons schedule")
     lessons = db.query(GroupLesson).all()
 
-    schedule = {}
+    week_order = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"]
+
+    schedule = defaultdict(list)
     for lesson in lessons:
-        if lesson.day not in schedule:
-            schedule[lesson.day] = []
         schedule[lesson.day].append(
             {
                 "day": lesson.day,
@@ -215,7 +215,9 @@ def get_schedule(db: Session = Depends(get_db)):
             key=lambda x: datetime.strptime(x["time"].split("-")[0], "%H:%M")
         )
 
-    return {"schedule": schedule}
+    ordered_schedule = {day: schedule.get(day, []) for day in week_order}
+
+    return {"schedule": ordered_schedule}
 
 @app.delete("/group_lessons/")
 def delete_group_lesson(day: str, time: str, db: Session = Depends(get_db)):
@@ -256,11 +258,10 @@ def get_personal_training_schedule(db: Session = Depends(get_db)):
     logger.info("Fetching personal training schedule")
     trainings = db.query(PersonalTraining).all()
 
-    # Organize and sort trainings by day and time
-    schedule = {}
+    week_order = ["sunday", "monday", "tuesday", "wednesday", "thursday", "friday", "saturday"]
+
+    schedule = defaultdict(list)
     for training in trainings:
-        if training.day not in schedule:
-            schedule[training.day] = []
         schedule[training.day].append(
             {
                 "day": training.day,
@@ -276,7 +277,9 @@ def get_personal_training_schedule(db: Session = Depends(get_db)):
             key=lambda x: datetime.strptime(x["time"].split("-")[0], "%H:%M")
         )
 
-    return {"schedule": schedule}
+    ordered_schedule = {day: schedule.get(day, []) for day in week_order}
+
+    return {"schedule": ordered_schedule}
 
 @app.delete("/personal_trainings/", status_code=204)
 def delete_personal_training(trainer_name: str, day: str, time: str, db: Session = Depends(get_db)):

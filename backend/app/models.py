@@ -1,7 +1,6 @@
 from sqlalchemy import Column, String, Integer, Enum, PrimaryKeyConstraint, Time, ForeignKey
 from app.database import Base
 from sqlalchemy.orm import relationship
-from app.schemas import MembershipType, PaymentMethod
 
 class User(Base):
     __tablename__ = "users"

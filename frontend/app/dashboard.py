@@ -8,13 +8,40 @@ from app.dashboard_services.gym_staff import gym_staff_page
 
 def dashboard_page():
     """Main dashboard page with navigation buttons."""
-    st.title("Fit-Me System")
+
+    # Add custom CSS
+    st.markdown(
+        """
+        <style>
+        .center-title {
+            text-align: center;
+            font-size: 36px;
+            font-weight: bold;
+            color: white;
+            margin-top: 20px;
+        }
+        .center-subtitle {
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            color: white;
+            margin-bottom: 20px;
+        }
+        </style>
+        """,
+        unsafe_allow_html=True
+    )
+
+    # Main title
+    st.markdown("<div class='center-title'>Fit-Me System</div>", unsafe_allow_html=True)
+
+    # Subtitle
+    st.markdown("<div class='center-subtitle'>Choose a Service</div>", unsafe_allow_html=True)
 
     if "dashboard_selected_service" not in st.session_state:
         st.session_state["dashboard_selected_service"] = None
 
-    # Service Bottons
-    st.subheader("Choose a Service")
+    # Service buttons
     col1, col2, col3, col4, col5, col6 = st.columns(6)
 
     with col1:
@@ -37,7 +64,7 @@ def dashboard_page():
             st.session_state["dashboard_selected_service"] = "gym_staff"
 
     if st.session_state["dashboard_selected_service"] is None:
-       st.info("Welcome to Fit-Me System! Please select a service from the options above.")
+        st.info("Welcome to Fit-Me System! Please select a service from the options above.")
     if st.session_state["dashboard_selected_service"] == "client_management":
         client_management_services()
     elif st.session_state["dashboard_selected_service"] == "add_interested_client":
@@ -50,3 +77,4 @@ def dashboard_page():
         personal_trainings_page()
     elif st.session_state["dashboard_selected_service"] == "gym_staff":
         gym_staff_page()
+

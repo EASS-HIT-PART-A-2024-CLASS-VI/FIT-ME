@@ -23,7 +23,7 @@ def personal_trainings_page():
                 )
                 for training in sorted_trainings:
                     st.markdown(
-                        f"💪 **{training['time']}**: {training['trainee_name']} with {training['trainer_name']}"
+                        f"💪 **{training['time']}: {training['trainee_name']} with {training['trainer_name']}**"
                     )
         else:
             st.error("Failed to fetch personal training schedule.")

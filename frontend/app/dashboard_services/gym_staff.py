@@ -7,7 +7,7 @@ def gym_staff_page():
     """Render the Gym Staff page."""
     st.header("Gym Staff Management")
 
-    col1, col2 = st.columns([1, 2])
+    col1, col2 = st.columns([1.2, 1.8])
 
     with col1:
         st.subheader("All Gym Staff Members")

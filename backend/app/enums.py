@@ -1,4 +1,4 @@
-from enum import Enum
+"""from enum import Enum
 
 class MembershipType(str, Enum): 
     monthly = "monthly"
@@ -13,3 +13,4 @@ class RoleType(str, Enum):
     trainer = "trainer"
     manager = "manager"
     secretary = "secretary"
+"""
