@@ -13,20 +13,20 @@ def dashboard_page():
     st.markdown(
         """
         <style>
-        .center-title {
-            text-align: center;
-            font-size: 36px;
-            font-weight: bold;
-            color: white;
-            margin-top: 20px;
-        }
-        .center-subtitle {
-            text-align: center;
-            font-size: 24px;
-            font-weight: bold;
-            color: white;
-            margin-bottom: 20px;
-        }
+            .center-title {
+                font-size: 60px;
+                font-weight: bold;
+                color: white;
+                text-align: center;
+                margin-bottom: 10px;
+            }
+            .center-subtitle {
+                font-size: 30px;
+                font-weight: lighter;
+                color: white;
+                text-align: center;
+                margin-bottom: 30px;
+            }
         </style>
         """,
         unsafe_allow_html=True

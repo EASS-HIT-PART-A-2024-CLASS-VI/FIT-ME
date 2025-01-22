@@ -86,12 +86,30 @@ def add_user(user: UserCreate, db: Session = Depends(get_db)):
     """
     Add a new user to the users table
     """
-    existing_user = get_user_by_username(db, user.username)  # Check if the username already exists
+    existing_user = get_user_by_username(db, user.username)
     if existing_user:
-        # Raise an error if the username already exists
         raise HTTPException(status_code=400, detail="Username already exists")
     return create_user(db, username=user.username, password=user.password)  # Create the new user
 
+@app.get("/users/", response_model=List[UserResponse])
+def get_all_users(db: Session = Depends(get_db)):
+    """
+    Fetch all users from the users table.
+    """
+    users = db.query(User).all()
+    return users
+
+@app.delete("/users/{username}", status_code=204)
+def delete_user(username: str, db: Session = Depends(get_db)):
+    """
+    Delete a user from the users table by username.
+    """
+    user = db.query(User).filter(User.username == username).first()
+    if not user:
+        raise HTTPException(status_code=404, detail="User not found")
+    db.delete(user)
+    db.commit()
+    return {"message": "User deleted successfully"}
 
 @app.post("/interested_clients/")
 def add_interested_client(client: InterestedClientCreate, db: Session = Depends(get_db)):

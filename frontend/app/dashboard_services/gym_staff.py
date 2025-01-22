@@ -1,5 +1,6 @@
 import streamlit as st
 import requests
+from datetime import datetime
 
 API_URL = "http://backend:8000"
 
@@ -16,19 +17,31 @@ def gym_staff_page():
             staff_members = response.json()
             for member in staff_members:
                 emoji = "🧑‍💼" if member["role"] == "Manager" else "🏋️" if member["role"] == "Trainer" else "🖥️"
-                st.write(f"- {emoji} **{member['first_name']} {member['last_name']}** ({member['role']}) - Phone: {member['phone_number']}")
+                st.markdown(
+                    f"<h4 style='color: white; font-weight: bold;'>{emoji} {member['first_name']} {member['last_name']} ({member['role']}) - Phone: {member['phone_number']}</h4>",
+                    unsafe_allow_html=True
+                )
         else:
             st.error("Failed to fetch staff members.")
 
     with col2:
-        col21, col22, col23 = st.columns([1, 1, 1])
+        col21, col22, col23, col24 = st.columns([1, 1, 1, 1])
 
         with col21:
             st.subheader("Add a New Staff Member")
-            first_name = st.text_input("First Name", key="staff_first_name")
-            last_name = st.text_input("Last Name", key="staff_last_name")
-            role = st.selectbox("Role", ["Receptionist", "Trainer", "Manager"], key="staff_role")
-            phone_number = st.text_input("Phone Number", key="staff_phone_number")
+
+            st.markdown("<h4 style='font-weight: bold; color: white;'>First Name</h4>", unsafe_allow_html=True)
+            first_name = st.text_input("First Name", label_visibility="collapsed", key="staff_first_name")
+
+            st.markdown("<h4 style='font-weight: bold; color: white;'>Last Name</h4>", unsafe_allow_html=True)
+            last_name = st.text_input("Last Name", label_visibility="collapsed", key="staff_last_name")
+
+            st.markdown("<h4 style='font-weight: bold; color: white;'>Role</h4>", unsafe_allow_html=True)
+            role = st.selectbox("Role", ["Receptionist", "Trainer", "Manager"], label_visibility="collapsed", key="staff_role")
+
+            st.markdown("<h4 style='font-weight: bold; color: white;'>Phone Number</h4>", unsafe_allow_html=True)
+            phone_number = st.text_input("Phone Number", label_visibility="collapsed", key="staff_phone_number")
+
             if st.button("Add Staff Member", key="add_staff_member"):
                 response = requests.post(f"{API_URL}/gym_staff/", json={
                     "first_name": first_name,
@@ -54,8 +67,13 @@ def gym_staff_page():
 
         with col23:
             st.subheader("Add a New User")
-            username = st.text_input("Username", key="user_username")
-            password = st.text_input("Password", key="user_password", type="password")
+
+            st.markdown("<h4 style='font-weight: bold; color: white;'>Username</h4>", unsafe_allow_html=True)
+            username = st.text_input("Username", label_visibility="collapsed", key="user_username")
+
+            st.markdown("<h4 style='font-weight: bold; color: white;'>Password</h4>", unsafe_allow_html=True)
+            password = st.text_input("Password", type="password", label_visibility="collapsed", key="user_password")
+
             if st.button("Add User", key="add_user"):
                 response = requests.post(f"{API_URL}/users/", json={
                     "username": username,
@@ -68,3 +86,19 @@ def gym_staff_page():
                 else:
                     st.error("Failed to add user.")
 
+        with col24:
+            st.subheader("Delete User")
+            response = requests.get(f"{API_URL}/users/")
+            if response.status_code == 200:
+                users = response.json()
+                for user in users:
+                    if st.button(f"Delete {user['username']}", key=f"delete_user_{user['username']}"):
+                        delete_response = requests.delete(f"{API_URL}/users/{user['username']}")
+                        if delete_response.status_code == 204:
+                            st.success(f"User {user['username']} deleted successfully!")
+                        elif delete_response.status_code == 404:
+                            st.error(f"User {user['username']} not found.")
+                        else:
+                            st.error(f"Failed to delete user {user['username']}.")
+            else:
+                st.error("Failed to fetch users.")

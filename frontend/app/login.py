@@ -4,7 +4,6 @@ import os
 import requests
 from app.dashboard import dashboard_page
 
-# URL of the backend API
 API_URL = "http://backend:8000"
 
 def add_background():
@@ -21,21 +20,26 @@ def add_background():
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
-            height: 100vh; /* Full viewport height */
+            height: 100vh;
         }}
+        .input-container {{
+            width: 300px;
+            margin: 0 auto 15px auto;
+            text-align: left;
+        }}
+
         .label {{
-            font-size: 20px;  /* Set label font size */
-            font-weight: bold;  /* Set label font weight */
-            color: white;  /* Set label color */
-            margin-bottom: 2px; /* Reduce spacing between label and input */
+            font-size: 20px;
+            font-weight: bold;
+            color: white;
+            margin-bottom: 5px;
         }}
         .stTextInput > div {{
-            margin: 0 auto; /* Center the input fields */
-            width: 50%; /* Adjust input width */
+            width: 100%; /* התאמה לרוחב הקונטיינר */
         }}
         .stButton > button {{
-            margin: 20px auto; /* Center the login button */
-            display: block; /* Center the button */
+            margin: 20px auto;
+            display: block;
         }}
         </style>
         """,
@@ -50,24 +54,25 @@ def login_page():
         unsafe_allow_html=True
     )
 
-    # Username label and input
-    st.markdown("<div class='label'>Username</div>", unsafe_allow_html=True)
+    st.markdown("<div class='input-container'>", unsafe_allow_html=True)
+    st.markdown("<label class='label'>Username</label>", unsafe_allow_html=True)
     username = st.text_input(
-        "Username",  # תווית לא ריקה עבור נגישות
-        label_visibility="collapsed",  # מחביא את התווית המובנית
+        "Username",
+        label_visibility="collapsed",
         key="login_username"
     )
 
-    # Password label and input
-    st.markdown("<div class='label'>Password</div>", unsafe_allow_html=True)
+    st.markdown("</div>", unsafe_allow_html=True)
+
+    st.markdown("<div class='input-container'>", unsafe_allow_html=True)
+    st.markdown("<label class='label'>Password</label>", unsafe_allow_html=True)
     password = st.text_input(
-        "Password",  # תווית לא ריקה עבור נגישות
-        label_visibility="collapsed",  # מחביא את התווית המובנית
+        "Password",
+        label_visibility="collapsed",
         type="password",
         key="login_password"
     )
-
-    # Login button
+    st.markdown("</div>", unsafe_allow_html=True)
     if st.button("Login", key="login_button"):
         if username and password:
             response = requests.post(f"{API_URL}/login/", json={

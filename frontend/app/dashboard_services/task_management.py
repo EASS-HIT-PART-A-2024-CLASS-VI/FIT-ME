@@ -17,7 +17,8 @@ def task_management_page():
             if tasks:
                 for task in tasks:
                     st.markdown(
-                        f"📝 **{task['first_name']} {task['last_name']} - {task['description']} (Phone: {task['phone_number']}**)"
+                        f"<h4 style='color: white; font-weight: bold;'>📝 {task['first_name']} {task['last_name']} - {task['description']} (Phone: {task['phone_number']})</h4>",
+                        unsafe_allow_html=True
                     )
             else:
                 st.info("No tasks available.")
@@ -26,10 +27,19 @@ def task_management_page():
 
     with col2:
         st.subheader("Add a New Task")
-        first_name = st.text_input("First Name", key="task_first_name")
-        last_name = st.text_input("Last Name", key="task_last_name")
-        phone_number = st.text_input("Phone Number", key="task_phone_number")
-        description = st.text_area("Task Description", key="task_description")
+
+        st.markdown("<h4 style='font-weight: bold; color: white;'>First Name</h4>", unsafe_allow_html=True)
+        first_name = st.text_input("First Name", label_visibility="collapsed", key="task_first_name")
+
+        st.markdown("<h4 style='font-weight: bold; color: white;'>Last Name</h4>", unsafe_allow_html=True)
+        last_name = st.text_input("Last Name", label_visibility="collapsed", key="task_last_name")
+
+        st.markdown("<h4 style='font-weight: bold; color: white;'>Phone Number</h4>", unsafe_allow_html=True)
+        phone_number = st.text_input("Phone Number", label_visibility="collapsed", key="task_phone_number")
+
+        st.markdown("<h4 style='font-weight: bold; color: white;'>Task Description</h4>", unsafe_allow_html=True)
+        description = st.text_area("Task Description", label_visibility="collapsed", key="task_description")
+
         if st.button("Add Task", key="add_task"):
             response = requests.post(f"{API_URL}/tasks/", json={
                 "first_name": first_name,
@@ -44,9 +54,10 @@ def task_management_page():
 
     with col3:
         st.subheader("Delete a Task")
-        delete_phone_number = st.text_input(
-            "Enter Phone Number of the Task to Delete", key="task_delete_phone_number"
-        )
+
+        st.markdown("<h4 style='font-weight: bold; color: white;'>Enter Phone Number of the Task to Delete</h4>", unsafe_allow_html=True)
+        delete_phone_number = st.text_input("Enter Phone Number of the Task to Delete", label_visibility="collapsed", key="task_delete_phone_number")
+
         if st.button("Delete Task", key="delete_task"):
             response = requests.delete(f"{API_URL}/tasks/{delete_phone_number}")
             if response.status_code == 204:
@@ -55,4 +66,3 @@ def task_management_page():
                 st.warning("Task not found.")
             else:
                 st.error("Failed to delete task.")
-

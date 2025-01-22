@@ -9,33 +9,61 @@ def group_lessons_page():
 
     col1, col2, col3 = st.columns([1, 1, 1])
 
-    # existing schedule
+    # Existing schedule
     with col1:
         st.subheader("Group Lessons Schedule")
         response = requests.get(f"{API_URL}/group_lessons/schedule/")
         if response.status_code == 200:
             schedule = response.json().get("schedule", {})
             for day, lessons in schedule.items():
-                st.markdown(f"### {day.capitalize()}")
-                # Display lessons directly (already sorted from backend)
+                st.markdown(f"<h3 style='color: white; font-weight: bold;'>{day.capitalize()}</h3>", unsafe_allow_html=True)
                 for lesson in lessons:
-                    st.markdown(f"**🏋️ {lesson['time']}: {lesson['class_name']} with {lesson['instructor_name']}**")
+                    st.markdown(
+                        f"<h4 style='color: white; font-weight: bold;'>🏋️ {lesson['time']}: {lesson['class_name']} with {lesson['instructor_name']}</h4>",
+                        unsafe_allow_html=True
+                    )
         else:
-            st.error("Failed to fetch group lessons schedule.")
+           st.error("Failed to fetch group lessons schedule.")
 
     # Add a new group lesson
     with col2:
         st.subheader("Add a New Group Lesson")
-        class_name = st.text_input("**Class Name**", key="class_name")
-        instructor_name = st.text_input("**Instructor Name**", key="instructor_name")
-        day = st.selectbox("**Day**", ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"], key="day")
+
+        st.markdown("<h4 style='font-weight: bold; color: white;'>Class Name</h4>", unsafe_allow_html=True)
+        class_name = st.text_input(
+            "Class Name",
+            label_visibility="collapsed",
+            key="class_name"
+        )
+
+        st.markdown("<h4 style='font-weight: bold; color: white;'>Instructor Name</h4>", unsafe_allow_html=True)
+        instructor_name = st.text_input(
+            "Instructor Name",
+            label_visibility="collapsed",
+            key="instructor_name"
+        )
+
+        st.markdown("<h4 style='font-weight: bold; color: white;'>Day</h4>", unsafe_allow_html=True)
+        day = st.selectbox(
+            "Day",
+            ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+            label_visibility="collapsed",
+            key="day"
+        )
+
+        st.markdown("<h4 style='font-weight: bold; color: white;'>Time Slot</h4>", unsafe_allow_html=True)
         time_slots = [
             "08:00-08:55", "09:00-09:55", "10:00-10:55", "11:00-11:55",
             "12:00-12:55", "13:00-13:55", "14:00-14:55", "15:00-15:55",
             "16:00-16:55", "17:00-17:55", "18:00-18:55", "19:00-19:55",
             "20:00-20:55", "21:00-21:55"
         ]
-        time = st.selectbox("**Time Slot**", time_slots, key="time_slot")
+        time = st.selectbox(
+            "Time Slot",
+            time_slots,
+            label_visibility="collapsed",
+            key="time_slot"
+        )
 
         if st.button("Add Group Lesson", key="add_group_lesson"):
             response = requests.post(f"{API_URL}/group_lessons/", json={
@@ -52,13 +80,22 @@ def group_lessons_page():
     # Delete a group lesson
     with col3:
         st.subheader("Delete a Group Lesson")
-        delete_day = st.selectbox("Select Day to Delete", ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"], key="delete_day")
-        delete_time = st.selectbox("Select Time Slot to Delete", [
-            "08:00-08:55", "09:00-09:55", "10:00-10:55", "11:00-11:55",
-            "12:00-12:55", "13:00-13:55", "14:00-14:55", "15:00-15:55",
-            "16:00-16:55", "17:00-17:55", "18:00-18:55", "19:00-19:55",
-            "20:00-20:55", "21:00-21:55"
-        ], key="delete_time")
+
+        st.markdown("<h4 style='font-weight: bold; color: white;'>Select Day to Delete</h4>", unsafe_allow_html=True)
+        delete_day = st.selectbox(
+            "Select Day to Delete",
+            ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+            label_visibility="collapsed",
+            key="delete_day"
+        )
+
+        st.markdown("<h4 style='font-weight: bold; color: white;'>Select Time Slot to Delete</h4>", unsafe_allow_html=True)
+        delete_time = st.selectbox(
+            "Select Time Slot to Delete",
+            time_slots,
+            label_visibility="collapsed",
+            key="delete_time"
+        )
 
         if st.button("Delete Group Lesson", key="delete_group_lesson"):
             response = requests.delete(f"{API_URL}/group_lessons/", params={
