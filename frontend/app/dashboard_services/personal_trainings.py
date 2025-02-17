@@ -12,7 +12,7 @@ def personal_trainings_page():
 
     # Display existing schedule
     with col1:
-        st.subheader("Current Personal Training Schedule")
+        st.subheader("Personal Training Schedule")
         response = requests.get(f"{API_URL}/personal_trainings/schedule/")
         if response.status_code == 200:
             schedule = response.json().get("schedule", {})

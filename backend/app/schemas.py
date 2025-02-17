@@ -1,6 +1,7 @@
 from typing import List, Dict
 from pydantic import BaseModel,Field
 from typing import Optional
+from datetime import date
 
 class UserBase(BaseModel):
     username: str
@@ -44,6 +45,7 @@ class ClientBase(BaseModel):
     id_number: str
     membership_type: str
     payment_method: str
+    date_of_birth: date | None = None
 
 class ClientCreate(ClientBase):
     pass
@@ -57,6 +59,7 @@ class PastClientBase(BaseModel):
     id_number: str
     first_name: str
     last_name: str
+    date_of_birth: Optional[date] = None
     membership_type: str
     payment_method: str
 

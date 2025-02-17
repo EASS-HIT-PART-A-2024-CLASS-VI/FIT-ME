@@ -23,7 +23,7 @@ from app.crud import (
     get_all_tasks,
     delete_task_by_phone_number,  
 )
-from app.crud import create_client, get_client_by_phone_number, get_client_by_id_number, add_group_lesson, get_all_group_lessons,add_personal_training, get_weekly_personal_trainings, move_client_to_past, get_all_past_clients,add_gym_staff, get_all_gym_staff
+from app.crud import create_client, get_client_by_phone_number, get_client_by_id_number, add_group_lesson, get_all_group_lessons,add_personal_training, get_weekly_personal_trainings, move_client_to_past, get_all_past_clients,add_gym_staff, get_all_gym_staff, get_all_clients
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -132,6 +132,11 @@ def add_interested_client(client: InterestedClientCreate, db: Session = Depends(
     create_task(db, new_task)  
 
     return new_client
+
+@app.get("/clients/", response_model=List[Client])
+
+def read_clients(db: Session = Depends(get_db)):
+    return get_all_clients(db)
 
 @app.post("/tasks/")
 def add_task(task: TaskCreate, db: Session = Depends(get_db)):

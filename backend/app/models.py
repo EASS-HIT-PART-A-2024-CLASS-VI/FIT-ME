@@ -1,4 +1,4 @@
-from sqlalchemy import Column, String, Integer, Enum, PrimaryKeyConstraint, Time, ForeignKey
+from sqlalchemy import Column, String, Integer,Date, Enum, PrimaryKeyConstraint, Time, ForeignKey
 from app.database import Base
 from sqlalchemy.orm import relationship
 
@@ -36,6 +36,7 @@ class Client(Base):
     last_name = Column(String, nullable=False)
     membership_type = Column(String, nullable=False)
     payment_method = Column(String, nullable=False)
+    date_of_birth = Column(Date, nullable=True)
 
     __table_args__ = (PrimaryKeyConstraint('phone_number', 'id_number', name='client_pk'),) # phone_number and id_number as primary key
 
@@ -46,8 +47,9 @@ class PastClient(Base):
     id_number = Column(String, nullable=False)  # ID number
     first_name = Column(String, nullable=False)  # First name
     last_name = Column(String, nullable=False)  # Last name
-    membership_type = Column(String, nullable=False)  # Membership type as TEXT
-    payment_method = Column(String, nullable=False)  # Payment method as TEXT
+    date_of_birth = Column(Date, nullable=True)
+    membership_type = Column(String, nullable=False)  # Membership type
+    payment_method = Column(String, nullable=False)  # Payment method
 
     __table_args__ = (
         PrimaryKeyConstraint('phone_number', 'id_number', name="past_clients_pk"),  # Composite primary key

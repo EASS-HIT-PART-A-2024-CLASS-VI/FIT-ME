@@ -20,6 +20,9 @@ def create_user(db: Session, username: str, password: str):
     logger.info(f"User created: {new_user}")
     return new_user
 
+def get_all_clients(db: Session):
+    return db.query(Client).all()
+
 def create_interested_client(db: Session, client: InterestedClientCreate):
     logger.info(f"Creating new interested client: {client}")
     new_client = InterestedClient(**client.dict())
@@ -60,8 +63,9 @@ def create_client(db: Session, client: ClientCreate):
         id_number=client.id_number,
         first_name=client.first_name,
         last_name=client.last_name,
-        membership_type=client.membership_type,  
-        payment_method=client.payment_method
+        membership_type=client.membership_type,
+        payment_method=client.payment_method,
+        date_of_birth=client.date_of_birth
     )
     db.add(new_client)
     db.commit()
@@ -92,6 +96,7 @@ def move_client_to_past(db: Session, phone_number: str, id_number: str):
         id_number=client.id_number,
         first_name=client.first_name,
         last_name=client.last_name,
+        date_of_birth=client.date_of_birth,
         membership_type=client.membership_type,
         payment_method=client.payment_method
     )
