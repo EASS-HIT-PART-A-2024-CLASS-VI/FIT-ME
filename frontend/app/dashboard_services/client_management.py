@@ -6,6 +6,9 @@ from datetime import date,datetime
 
 API_URL = "http://backend:8000"
 
+def get_payment_emoji(payment_method: str) -> str:
+    return "💵" if payment_method.lower() == "cash" else "💳"
+
 def calculate_age(date_of_birth: str) -> str:
     if not date_of_birth:
         return "Unknown"
@@ -93,6 +96,7 @@ def client_management_services():
                        age = "Invalid Age"
                 else:
                     dob_formatted = "Not Provided"
+                payment_emoji = get_payment_emoji(client['payment_method'])
                 st.markdown(f"""
                 <h3 style='font-weight: bold; color: white;'>Client Details</h3>
                 <ul>
@@ -101,7 +105,7 @@ def client_management_services():
                     <li><h4 style='font-weight: bold; color: white;'>ID Number: {client['id_number']} 🔑</h4></li>
                     <li><h4 style='font-weight: bold; color: white;'>Date of Birth: {dob_formatted} 🎂 (Age: {age} 🕰️)</h4></li>
                     <li><h4 style='font-weight: bold; color: white;'>Membership: {client['membership_type']} 🗓️</h4></li>
-                    <li><h4 style='font-weight: bold; color: white;'>Payment Method: {client['payment_method']} 💳</h4></li>
+                    <li><h4 style='font-weight: bold; color: white;'>Payment Method: {client['payment_method']} {payment_emoji}</h4></li>
                 </ul>
                 """, unsafe_allow_html=True)
             else:
@@ -124,15 +128,16 @@ def client_management_services():
                        age = "Invalid Age"
                 else:
                     dob_formatted = "Not Provided"
+                payment_emoji = get_payment_emoji(client['payment_method'])
                 st.markdown(f"""
                 <h3 style='font-weight: bold; color: white;'>Client Details</h3>
                 <ul>
                     <li><h4 style='font-weight: bold; color: white;'>Name: {client['first_name']} {client['last_name']} 👤</h4></li>
                     <li><h4 style='font-weight: bold; color: white;'>Phone: {client['phone_number']} 📞</h4></li>
                     <li><h4 style='font-weight: bold; color: white;'>ID Number: {client['id_number']} 🔑</h4></li>
-                    <li><h4 style='font-weight: bold; color: white;'>Date of Birth: {dob_formatted}🎂( (Age: {age} 🕰️)</h4></li>
+                    <li><h4 style='font-weight: bold; color: white;'>Date of Birth: {dob_formatted}🎂 (Age: {age} 🕰️)</h4></li>
                     <li><h4 style='font-weight: bold; color: white;'>Membership: {client['membership_type']} 🗓️</h4></li>
-                    <li><h4 style='font-weight: bold; color: white;'>Payment Method: {client['payment_method']} 💳</h4></li>
+                    <li><h4 style='font-weight: bold; color: white;'>Payment Method: {client['payment_method']} {payment_emoji}</h4></li>
                 </ul>
                 """, unsafe_allow_html=True)
             else:
@@ -197,6 +202,7 @@ def client_management_services():
                                 age = "Invalid Age"
                         else:
                             dob_formatted = "Not Provided"
+                        payment_emoji = get_payment_emoji(client['payment_method'])
                         st.markdown(f"""
                         <h3 style='font-weight: bold; color: white;'>Client Details</h3>
                         <ul>
@@ -205,7 +211,7 @@ def client_management_services():
                             <li><h4 style='font-weight: bold; color: white;'>ID Number: {client['id_number']} 🔑</h4></li>
                             <li><h4 style='font-weight: bold; color: white;'>Date of Birth: {dob_formatted} 🎂 (Age: {age} 🕰️)</h4></li>
                             <li><h4 style='font-weight: bold; color: white;'>Membership: {client['membership_type']} 🗓️</h4></li>
-                            <li><h4 style='font-weight: bold; color: white;'>Payment Method: {client['payment_method']} 💳</h4></li>
+                            <li><h4 style='font-weight: bold; color: white;'>Payment Method: {client['payment_method']} {payment_emoji}</h4></li>
                         </ul>
                         """, unsafe_allow_html=True)
                         found = True
