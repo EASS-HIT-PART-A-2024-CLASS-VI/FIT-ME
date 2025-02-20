@@ -356,7 +356,8 @@ def create_gym_staff(staff: GymStaffCreate, db: Session = Depends(get_db)):
         first_name=staff.first_name,
         last_name=staff.last_name,
         role=staff.role,
-        phone_number=staff.phone_number
+        phone_number=staff.phone_number,
+        date_of_birth=staff.date_of_birth
     )
 
 @app.get("/gym_staff/", response_model=List[GymStaffResponse])

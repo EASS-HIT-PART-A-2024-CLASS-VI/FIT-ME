@@ -1,7 +1,8 @@
 import logging
 from sqlalchemy.orm import Session
 from app.models import User, InterestedClient, Task, Client, GroupLesson,PersonalTraining, PastClient,GymStaff
-from app.schemas import InterestedClientCreate, TaskCreate, ClientCreate
+from app.schemas import InterestedClientCreate, TaskCreate, ClientCreate,GymStaffCreate
+from datetime import datetime, date
 
 logger = logging.getLogger(__name__)
 
@@ -171,15 +172,16 @@ def get_weekly_personal_trainings(db: Session):
         })
     return schedule
 
-def add_gym_staff(db: Session, first_name: str, last_name: str, role: str, phone_number: str):
+def add_gym_staff(db: Session, first_name: str, last_name: str, role: str, phone_number: str, date_of_birth: date = None):
     """
     Add a new staff member to the gym_staff table.
     """
     staff_member = GymStaff(
         first_name=first_name,
         last_name=last_name,
-        role=role,  # Use role as a string
-        phone_number=phone_number
+        role=role,
+        phone_number=phone_number,
+        date_of_birth=date_of_birth
     )
     db.add(staff_member)
     db.commit()
@@ -197,7 +199,8 @@ def get_all_gym_staff(db: Session):
             "first_name": member.first_name,
             "last_name": member.last_name,
             "role": member.role,  # Use role as a string
-            "phone_number": member.phone_number
+            "phone_number": member.phone_number,
+            "date_of_birth": member.date_of_birth
         }
         for member in staff
     ]

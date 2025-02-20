@@ -1,4 +1,4 @@
-from sqlalchemy import Column, String, Integer,Date, Enum, PrimaryKeyConstraint, Time, ForeignKey
+from sqlalchemy import Column, String, Integer,Date, Enum, PrimaryKeyConstraint, Time, ForeignKey, Date
 from app.database import Base
 from sqlalchemy.orm import relationship
 
@@ -89,3 +89,4 @@ class GymStaff(Base):
     last_name = Column(String, nullable=False)  # Last name of the staff member
     role = Column(String, nullable=False)
     phone_number = Column(String, nullable=False, unique=True)  #Phone number of the staff member
+    date_of_birth = Column(Date, nullable=False)

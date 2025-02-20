@@ -1,6 +1,6 @@
 import streamlit as st
 import requests
-from datetime import datetime
+from datetime import datetime,date
 
 API_URL = "http://backend:8000"
 
@@ -42,12 +42,23 @@ def gym_staff_page():
             st.markdown("<h4 style='font-weight: bold; color: white;'>Phone Number</h4>", unsafe_allow_html=True)
             phone_number = st.text_input("Phone Number", label_visibility="collapsed", key="staff_phone_number")
 
+            st.markdown("<h4 style='font-weight: bold; color: white;'>Date of Birth</h4>", unsafe_allow_html=True)
+            min_year = 1948
+            max_year = date.today().year
+            date_of_birth = st.date_input(
+                "Date of Birth", 
+                min_value=date(min_year, 1, 1), 
+                max_value=date(max_year, 12, 31), 
+                key="staff_dob"
+            )
+
             if st.button("Add Staff Member", key="add_staff_member"):
                 response = requests.post(f"{API_URL}/gym_staff/", json={
                     "first_name": first_name,
                     "last_name": last_name,
                     "role": role,
-                    "phone_number": phone_number
+                    "phone_number": phone_number,
+                    "date_of_birth": date_of_birth.strftime("%Y-%m-%d")
                 })
                 if response.status_code == 200:
                     st.success("Staff member added successfully!")

@@ -110,6 +110,7 @@ class GymStaffBase(BaseModel):
     last_name: str
     role: str
     phone_number: str
+    date_of_birth: date
 
 class GymStaffCreate(GymStaffBase):
     pass

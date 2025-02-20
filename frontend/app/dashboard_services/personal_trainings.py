@@ -1,8 +1,18 @@
 import streamlit as st
 import requests
 from datetime import datetime
+import pandas as pd
+import io
 
 API_URL = "http://backend:8000"
+
+def convert_to_excel(data):
+    df = pd.DataFrame(data)
+    output = io.BytesIO()
+    with pd.ExcelWriter(output, engine="xlsxwriter") as writer:
+        df.to_excel(writer, index=False, sheet_name="Personal Trainings")
+    processed_data = output.getvalue()
+    return processed_data
 
 def personal_trainings_page():
     """Render the Personal Trainings page."""
@@ -15,6 +25,7 @@ def personal_trainings_page():
         st.subheader("Personal Training Schedule")
         response = requests.get(f"{API_URL}/personal_trainings/schedule/")
         if response.status_code == 200:
+            schedule_data = []
             schedule = response.json().get("schedule", {})
             for day, trainings in schedule.items():
                 st.markdown(f"<h3 style='color: white; font-weight: bold;'>{day.capitalize()}</h3>", unsafe_allow_html=True)
@@ -25,6 +36,23 @@ def personal_trainings_page():
                     st.markdown(
                         f"<h4 style='color: white; font-weight: bold;'>💪 {training['time']}: {training['trainee_name']} with {training['trainer_name']}</h4>",
                         unsafe_allow_html=True
+                    )
+                    schedule_data.append({
+                        "Day": day,
+                        "Time": training["time"],
+                        "Trainee": training["trainee_name"],
+                        "Trainer": training["trainer_name"]
+                    })
+            if schedule_data:
+                if st.button("Download Personal Training Schedule 📂", key="prepare_download"):
+                    st.session_state["excel_ready"] = True
+                if st.session_state.get("excel_ready", False):
+                    excel_file = convert_to_excel(schedule_data)
+                    st.download_button(
+                        label="click to Download 📥",
+                        data=excel_file,
+                        file_name="Personal_Trainings_Schedule.xlsx",
+                        mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
                     )
         else:
             st.error("Failed to fetch personal training schedule.")

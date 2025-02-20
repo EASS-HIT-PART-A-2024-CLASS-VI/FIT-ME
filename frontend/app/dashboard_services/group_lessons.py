@@ -1,7 +1,17 @@
 import streamlit as st
 import requests
+import pandas as pd
+import io
 
 API_URL = "http://backend:8000"
+
+def convert_to_excel(data):
+    df = pd.DataFrame(data)
+    output = io.BytesIO()
+    with pd.ExcelWriter(output, engine="xlsxwriter") as writer:
+        df.to_excel(writer, index=False, sheet_name="GroupLessons")
+    processed_data = output.getvalue()
+    return processed_data
 
 def group_lessons_page():
     """Render the Group Lessons page."""
@@ -24,6 +34,29 @@ def group_lessons_page():
                     )
         else:
            st.error("Failed to fetch group lessons schedule.")
+
+        if st.button("Download Group Lessons 📂", key="download_group_lessons"):
+            response = requests.get(f"{API_URL}/group_lessons/schedule/")
+            if response.status_code == 200:
+                schedule_data = [
+                    {
+                        "Day": day,
+                        "Time": lesson["time"],
+                        "Class Name": lesson["class_name"],
+                        "Instructor": lesson["instructor_name"]
+                    }
+                    for day, lessons in response.json().get("schedule", {}).items()
+                    for lesson in lessons
+                ]
+                excel_file = convert_to_excel(schedule_data)
+                st.download_button(
+                    label="Click to Download 📥",
+                    data=excel_file,
+                    file_name="Group_Lessons_Schedule.xlsx",
+                    mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
+                )
+            else:
+                st.error("Error fetching group lessons schedule")
 
     # Add a new group lesson
     with col2:
