@@ -58,7 +58,6 @@ def group_lessons_page():
             else:
                 st.error("Error fetching group lessons schedule")
 
-    # Add a new group lesson
     with col2:
         st.subheader("Add a New Group Lesson")
 
@@ -110,7 +109,6 @@ def group_lessons_page():
             else:
                 st.error(f"Failed to add group lesson: {response.text}")
 
-    # Delete a group lesson
     with col3:
         st.subheader("Delete a Group Lesson")
 

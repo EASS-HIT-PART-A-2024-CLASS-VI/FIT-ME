@@ -38,7 +38,6 @@ def add_background():
 
 def main():
     """Main application flow."""
-    # Initialize session state variables
     if "current_page" not in st.session_state:
         st.session_state["current_page"] = "login"
     if "logged_in" not in st.session_state:
@@ -64,6 +63,8 @@ def main():
         personal_trainings_page()
     elif st.session_state["current_page"] == "gym_staff":
         gym_staff_page()
+    elif st.session_state["current_page"] == "birthdays":
+        birthday_page()
     else:
         st.error("Page not implemented yet.")
 

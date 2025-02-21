@@ -57,7 +57,6 @@ def personal_trainings_page():
         else:
             st.error("Failed to fetch personal training schedule.")
 
-    # Add a new personal training session
     with col2:
         st.subheader("Add a New Personal Training Session")
 
@@ -91,7 +90,6 @@ def personal_trainings_page():
             else:
                 st.error(f"Failed to add personal training session: {response.text}")
 
-    # Delete a personal training session
     with col3:
         st.subheader("Delete a Personal Training Session")
 

@@ -10,19 +10,18 @@ from app.dashboard_services.birthday_page import birthday_page
 def dashboard_page():
     """Main dashboard page with navigation buttons."""
 
-    # Add custom CSS
     st.markdown(
         """
         <style>
             .center-title {
-                font-size: 60px;
+                font-size: 65px;
                 font-weight: bold;
                 color: white;
                 text-align: center;
                 margin-bottom: 10px;
             }
             .center-subtitle {
-                font-size: 30px;
+                font-size: 32px;
                 font-weight: lighter;
                 color: white;
                 text-align: center;
@@ -33,17 +32,15 @@ def dashboard_page():
         unsafe_allow_html=True
     )
 
-    # Main title
     st.markdown("<div class='center-title'>Fit-Me System</div>", unsafe_allow_html=True)
 
-    # Subtitle
     st.markdown("<div class='center-subtitle'>Choose a Service</div>", unsafe_allow_html=True)
 
     if "dashboard_selected_service" not in st.session_state:
         st.session_state["dashboard_selected_service"] = None
 
     # Service buttons
-    col1, col2, col3, col4, col5, col6, col7 = st.columns(7)  # ✅ הוספת טור נוסף לימי הולדת
+    col1, col2, col3, col4, col5, col6, col7 = st.columns(7)
 
     with col1:
         if st.button("Client Management"):
@@ -63,7 +60,7 @@ def dashboard_page():
     with col6:
         if st.button("Gym Staff"):
             st.session_state["dashboard_selected_service"] = "gym_staff"
-    with col7:  # ✅ הוספת כפתור ימי הולדת
+    with col7:
         if st.button("Birthdays 🎂"):
             st.session_state["dashboard_selected_service"] = "birthdays"
 

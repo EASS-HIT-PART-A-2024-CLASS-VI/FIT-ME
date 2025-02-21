@@ -1,8 +1,18 @@
 import streamlit as st
+import pandas as pd
+import io
 import requests
 from datetime import datetime,date
 
 API_URL = "http://backend:8000"
+
+def convert_to_excel(data, sheet_name="Gym_Staff"):
+    """Convert JSON data to an Excel file."""
+    df = pd.DataFrame(data)
+    output = io.BytesIO()
+    with pd.ExcelWriter(output, engine="xlsxwriter") as writer:
+        df.to_excel(writer, index=False, sheet_name=sheet_name)
+    return output.getvalue()
 
 def gym_staff_page():
     """Render the Gym Staff page."""
@@ -21,6 +31,12 @@ def gym_staff_page():
                     f"<h4 style='color: white; font-weight: bold;'>{emoji} {member['first_name']} {member['last_name']} ({member['role']}) - Phone: {member['phone_number']}</h4>",
                     unsafe_allow_html=True
                 )
+            if st.button("Download Gym Staff 📂"):
+                excel_file = convert_to_excel(staff_members)
+                st.download_button(label="📥 Click to Download Gym Staff List",
+                                   data=excel_file,
+                                   file_name="Gym_Staff.xlsx",
+                                   mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
         else:
             st.error("Failed to fetch staff members.")
 

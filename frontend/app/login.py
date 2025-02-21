@@ -35,7 +35,7 @@ def add_background():
             margin-bottom: 5px;
         }}
         .stTextInput > div {{
-            width: 100%; /* התאמה לרוחב הקונטיינר */
+            width: 100%;
         }}
         .stButton > button {{
             margin: 20px auto;
