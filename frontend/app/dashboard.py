@@ -5,6 +5,7 @@ from app.dashboard_services.task_management import task_management_page
 from app.dashboard_services.group_lessons import group_lessons_page
 from app.dashboard_services.personal_trainings import personal_trainings_page
 from app.dashboard_services.gym_staff import gym_staff_page
+from app.dashboard_services.birthday_page import birthday_page
 
 def dashboard_page():
     """Main dashboard page with navigation buttons."""
@@ -42,7 +43,7 @@ def dashboard_page():
         st.session_state["dashboard_selected_service"] = None
 
     # Service buttons
-    col1, col2, col3, col4, col5, col6 = st.columns(6)
+    col1, col2, col3, col4, col5, col6, col7 = st.columns(7)  # ✅ הוספת טור נוסף לימי הולדת
 
     with col1:
         if st.button("Client Management"):
@@ -62,9 +63,13 @@ def dashboard_page():
     with col6:
         if st.button("Gym Staff"):
             st.session_state["dashboard_selected_service"] = "gym_staff"
+    with col7:  # ✅ הוספת כפתור ימי הולדת
+        if st.button("Birthdays 🎂"):
+            st.session_state["dashboard_selected_service"] = "birthdays"
 
     if st.session_state["dashboard_selected_service"] is None:
         st.info("Welcome to Fit-Me System! Please select a service from the options above.")
+    
     if st.session_state["dashboard_selected_service"] == "client_management":
         client_management_services()
     elif st.session_state["dashboard_selected_service"] == "add_interested_client":
@@ -77,4 +82,6 @@ def dashboard_page():
         personal_trainings_page()
     elif st.session_state["dashboard_selected_service"] == "gym_staff":
         gym_staff_page()
+    elif st.session_state["dashboard_selected_service"] == "birthdays":
+        birthday_page()
 
