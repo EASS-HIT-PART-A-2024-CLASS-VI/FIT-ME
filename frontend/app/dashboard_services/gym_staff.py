@@ -33,7 +33,7 @@ def gym_staff_page():
                 )
             if st.button("Download Gym Staff 📂"):
                 excel_file = convert_to_excel(staff_members)
-                st.download_button(label="📥 Click to Download Gym Staff List",
+                st.download_button(label="📥 Click to Download Gym Staff List to Excel",
                                    data=excel_file,
                                    file_name="Gym_Staff.xlsx",
                                    mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")

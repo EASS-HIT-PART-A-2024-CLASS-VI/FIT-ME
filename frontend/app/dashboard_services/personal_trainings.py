@@ -29,27 +29,33 @@ def personal_trainings_page():
             schedule = response.json().get("schedule", {})
             for day, trainings in schedule.items():
                 st.markdown(f"<h3 style='color: white; font-weight: bold;'>{day.capitalize()}</h3>", unsafe_allow_html=True)
-                sorted_trainings = sorted(
-                    trainings, key=lambda x: datetime.strptime(x["time"].split("-")[0], "%H:%M")
-                )
-                for training in sorted_trainings:
+                if trainings:
+                    sorted_trainings = sorted(
+                        trainings, key=lambda x: datetime.strptime(x["time"].split("-")[0], "%H:%M")
+                    )
+                    for training in sorted_trainings:
+                        st.markdown(
+                            f"<h4 style='color: white; font-weight: bold;'>💪 {training['time']}: {training['trainee_name']} with {training['trainer_name']}</h4>",
+                            unsafe_allow_html=True
+                        )
+                        schedule_data.append({
+                            "Day": day,
+                            "Time": training["time"],
+                            "Trainee": training["trainee_name"],
+                            "Trainer": training["trainer_name"]
+                        })
+                else:
                     st.markdown(
-                        f"<h4 style='color: white; font-weight: bold;'>💪 {training['time']}: {training['trainee_name']} with {training['trainer_name']}</h4>",
+                        f"<h4 style='color: white; font-weight: bold; font-style: italic;'>No personal training sessions scheduled for this day</h4>",
                         unsafe_allow_html=True
                     )
-                    schedule_data.append({
-                        "Day": day,
-                        "Time": training["time"],
-                        "Trainee": training["trainee_name"],
-                        "Trainer": training["trainer_name"]
-                    })
             if schedule_data:
                 if st.button("Download Personal Training Schedule 📂", key="prepare_download"):
                     st.session_state["excel_ready"] = True
                 if st.session_state.get("excel_ready", False):
                     excel_file = convert_to_excel(schedule_data)
                     st.download_button(
-                        label="click to Download 📥",
+                        label="Click to Download to Excel 📥",
                         data=excel_file,
                         file_name="Personal_Trainings_Schedule.xlsx",
                         mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"

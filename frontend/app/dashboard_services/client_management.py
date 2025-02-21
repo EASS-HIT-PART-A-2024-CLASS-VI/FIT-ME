@@ -148,7 +148,7 @@ def client_management_services():
             if response.status_code == 200:
                 client_data = response.json()
                 excel_file = convert_to_excel(client_data)
-                st.download_button(label="📥 Click to Download Active Clients",
+                st.download_button(label="📥 Click to Download Active Clients to Excel",
                                    data=excel_file,
                                    file_name="Active_Clients.xlsx",
                                    mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet")
@@ -182,7 +182,7 @@ def client_management_services():
                 st.error(f"Error: {response.text}")
 
     with col4:
-        st.subheader("Past Customer Archive")
+        st.subheader("Past Clients Archive")
         st.markdown("<h4 style='font-weight: bold; color: white;'>Enter Phone Number to Search Past Customer</h4>", unsafe_allow_html=True)
         search_past_phone = st.text_input("Enter Phone Number to Search Past Customer", label_visibility="collapsed")
 
@@ -221,14 +221,14 @@ def client_management_services():
             else:
                 st.error(f"Error: {response.text}")
 
-        if st.button("Download Past Clients 📂", key="download_past_clients"):
+        if st.button("Download Past Clients Archive 📂", key="download_past_clients"):
             response = requests.get(f"{API_URL}/past_clients/")
             if response.status_code == 200:
                 past_client_data = response.json()
                 if past_client_data:
                     excel_file = convert_to_excel(past_client_data, sheet_name="Past Clients")
                     st.download_button(
-                        label="📥 Click to Download",
+                        label="📥 Click to Download Archive to Excel",
                         data=excel_file,
                         file_name="past_clients.xlsx",
                         mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"

@@ -27,15 +27,22 @@ def group_lessons_page():
             schedule = response.json().get("schedule", {})
             for day, lessons in schedule.items():
                 st.markdown(f"<h3 style='color: white; font-weight: bold;'>{day.capitalize()}</h3>", unsafe_allow_html=True)
-                for lesson in lessons:
+
+                if lessons:
+                    for lesson in lessons:
+                        st.markdown(
+                            f"<h4 style='color: white; font-weight: bold;'>🏋️ {lesson['time']}: {lesson['class_name']} with {lesson['instructor_name']}</h4>",
+                            unsafe_allow_html=True
+                        )
+                else:
                     st.markdown(
-                        f"<h4 style='color: white; font-weight: bold;'>🏋️ {lesson['time']}: {lesson['class_name']} with {lesson['instructor_name']}</h4>",
+                        f"<h4 style='color: white; font-weight: bold; font-style: italic;'>No lessons scheduled for this day</h4>",
                         unsafe_allow_html=True
                     )
         else:
            st.error("Failed to fetch group lessons schedule.")
 
-        if st.button("Download Group Lessons 📂", key="download_group_lessons"):
+        if st.button("Download Group Lessons Schedule📂", key="download_group_lessons"):
             response = requests.get(f"{API_URL}/group_lessons/schedule/")
             if response.status_code == 200:
                 schedule_data = [
@@ -50,7 +57,7 @@ def group_lessons_page():
                 ]
                 excel_file = convert_to_excel(schedule_data)
                 st.download_button(
-                    label="Click to Download 📥",
+                    label="Click to Download to Excel📥",
                     data=excel_file,
                     file_name="Group_Lessons_Schedule.xlsx",
                     mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet"
