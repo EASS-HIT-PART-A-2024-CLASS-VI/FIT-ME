@@ -1,6 +1,6 @@
 import streamlit as st
 import requests
-from datetime import datetime
+from datetime import datetime,date
 
 API_URL = "http://backend:8000"
 
@@ -19,6 +19,16 @@ def format_date(date_str):
         return date_obj.strftime("%d-%m-%Y")
     except ValueError:
         return date_str
+
+def days_diff_this_year(birthdate_str):
+    today = date.today()
+    try:
+        birthdate = datetime.strptime(birthdate_str, "%Y-%m-%d").date()
+    except ValueError:
+        return None
+
+    this_year_bday = date(year=today.year, month=birthdate.month, day=birthdate.day)
+    return (this_year_bday - today).days
 
 def birthday_page():
     st.markdown(
@@ -79,7 +89,6 @@ def birthday_page():
 
     col1, col2, col_center, col4, col5 = st.columns([1, 2.8, 3.5, 1.5, 1])
     with col_center:
-        #st.markdown("<h4 style='font-weight: bold; color: white;'>Choose an option:</h4>", unsafe_allow_html=True)
         show_employees = st.checkbox("Show Employees Birthdays 🎉", key="show_employees")
         show_clients = st.checkbox("Show Clients Birthdays 🎈", key="show_clients")
 
@@ -92,8 +101,18 @@ def birthday_page():
 
         if employees_with_birthday:
             for employee in employees_with_birthday:
+                diff = days_diff_this_year(employee['date_of_birth'])
+                if diff is None:
+                    extra_text = ""
+                elif diff > 0:
+                    extra_text = f" - {diff} days left"
+                elif diff == 0:
+                    extra_text = " - Today!"
+                else:
+                    extra_text = f" - Passed {abs(diff)} days ago"
+
                 st.markdown(
-                    f"<p class='birthday-entry'>🎉 {employee['first_name']} {employee['last_name']} - {format_date(employee['date_of_birth'])}</p>",
+                    f"<p class='birthday-entry'>🎉 {employee['first_name']} {employee['last_name']} - {format_date(employee['date_of_birth'])}{extra_text}</p>",
                     unsafe_allow_html=True
                 )
         else:
@@ -106,8 +125,17 @@ def birthday_page():
 
         if clients_with_birthday:
             for client in clients_with_birthday:
+                diff = days_diff_this_year(client['date_of_birth'])
+                if diff is None:
+                    extra_text = ""
+                elif diff > 0:
+                    extra_text = f" - {diff} days left"
+                elif diff == 0:
+                    extra_text = " - Today!"
+                else:
+                    extra_text = f" - Passed {abs(diff)} days ago"
                 st.markdown(
-                    f"<p class='birthday-entry'>🎈 {client['first_name']} {client['last_name']} - {format_date(client['date_of_birth'])}</p>",
+                    f"<p class='birthday-entry'>🎈 {client['first_name']} {client['last_name']} - {format_date(client['date_of_birth'])}{extra_text}</p>",
                     unsafe_allow_html=True
                 )
         else:
