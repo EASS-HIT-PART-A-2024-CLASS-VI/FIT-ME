@@ -89,7 +89,7 @@ def add_user(user: UserCreate, db: Session = Depends(get_db)):
     existing_user = get_user_by_username(db, user.username)
     if existing_user:
         raise HTTPException(status_code=400, detail="Username already exists")
-    return create_user(db, username=user.username, password=user.password)  # Create the new user
+    return create_user(db, username=user.username, password=user.password)
 
 @app.get("/users/", response_model=List[UserResponse])
 def get_all_users(db: Session = Depends(get_db)):
@@ -118,10 +118,8 @@ def add_interested_client(client: InterestedClientCreate, db: Session = Depends(
     """
     logger.info(f"Adding interested client: {client.first_name} {client.last_name}")
 
-    # Add interested client to the table
     new_client = create_interested_client(db, client)
 
-    # Automatically create a task
     task_description = f"{client.first_name} is interested in a gym membership. Please contact her/him ASAP."
     new_task = TaskCreate(
         first_name=client.first_name,
@@ -134,7 +132,6 @@ def add_interested_client(client: InterestedClientCreate, db: Session = Depends(
     return new_client
 
 @app.get("/clients/", response_model=List[Client])
-
 def read_clients(db: Session = Depends(get_db)):
     return get_all_clients(db)
 

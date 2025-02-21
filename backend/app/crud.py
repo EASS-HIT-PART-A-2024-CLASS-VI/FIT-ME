@@ -89,7 +89,7 @@ def move_client_to_past(db: Session, phone_number: str, id_number: str):
         Client.id_number == id_number
     ).first()
     if not client:
-        return None  # Client not found
+        return None
 
     # Create a new PastClient entry
     past_client = PastClient(
@@ -124,10 +124,10 @@ def add_group_lesson(db: Session, day: str, time: str, class_name: str, instruct
         class_name=class_name,
         instructor_name=instructor_name,
     )
-    db.add(group_lesson)  # Add the lesson to the database session
-    db.commit()  # Commit the transaction to save changes
-    db.refresh(group_lesson)  # Refresh the instance to reflect updated values
-    return group_lesson  # Return the newly added lesson
+    db.add(group_lesson)
+    db.commit()
+    db.refresh(group_lesson)
+    return group_lesson
 
 def get_all_group_lessons(db: Session):
     lessons = db.query(GroupLesson).all()
@@ -195,10 +195,10 @@ def get_all_gym_staff(db: Session):
     staff = db.query(GymStaff).all()
     return [
         {
-            "id": member.id,  # Include the `id` field
+            "id": member.id,
             "first_name": member.first_name,
             "last_name": member.last_name,
-            "role": member.role,  # Use role as a string
+            "role": member.role,
             "phone_number": member.phone_number,
             "date_of_birth": member.date_of_birth
         }

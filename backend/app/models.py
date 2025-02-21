@@ -43,13 +43,13 @@ class Client(Base):
 class PastClient(Base):
     __tablename__ = "past_clients"
 
-    phone_number = Column(String, nullable=False)  # Phone number
-    id_number = Column(String, nullable=False)  # ID number
-    first_name = Column(String, nullable=False)  # First name
-    last_name = Column(String, nullable=False)  # Last name
+    phone_number = Column(String, nullable=False)
+    id_number = Column(String, nullable=False)
+    first_name = Column(String, nullable=False)
+    last_name = Column(String, nullable=False)
     date_of_birth = Column(Date, nullable=True)
-    membership_type = Column(String, nullable=False)  # Membership type
-    payment_method = Column(String, nullable=False)  # Payment method
+    membership_type = Column(String, nullable=False)
+    payment_method = Column(String, nullable=False)
 
     __table_args__ = (
         PrimaryKeyConstraint('phone_number', 'id_number', name="past_clients_pk"),  # Composite primary key
@@ -59,10 +59,10 @@ class PastClient(Base):
 class GroupLesson(Base):
     __tablename__ = "group_lessons"
 
-    day = Column(String, nullable=False)  # Day of the lesson (e.g., Sunday)
-    time = Column(String, nullable=False)  # Time of the lesson (e.g., 08:00-08:55)
-    class_name = Column(String, nullable=False)  # Name of the lesson
-    instructor_name = Column(String, nullable=False)  # Name of the instructor
+    day = Column(String, nullable=False)  #The format for example - Sunday
+    time = Column(String, nullable=False)  #The format for example - 08:00-08:55
+    class_name = Column(String, nullable=False)
+    instructor_name = Column(String, nullable=False)
 
     #day and time together as primary key
     __table_args__ = (
@@ -85,8 +85,8 @@ class GymStaff(Base):
     __tablename__ = "gym_staff"
 
     id = Column(Integer, primary_key=True, autoincrement=True)
-    first_name = Column(String, nullable=False)  # First name of the staff member
-    last_name = Column(String, nullable=False)  # Last name of the staff member
+    first_name = Column(String, nullable=False)
+    last_name = Column(String, nullable=False)
     role = Column(String, nullable=False)
-    phone_number = Column(String, nullable=False, unique=True)  #Phone number of the staff member
+    phone_number = Column(String, nullable=False, unique=True)
     date_of_birth = Column(Date, nullable=False)
