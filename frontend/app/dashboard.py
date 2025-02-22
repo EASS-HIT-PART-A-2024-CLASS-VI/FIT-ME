@@ -6,6 +6,7 @@ from app.dashboard_services.group_lessons import group_lessons_page
 from app.dashboard_services.personal_trainings import personal_trainings_page
 from app.dashboard_services.gym_staff import gym_staff_page
 from app.dashboard_services.birthday_page import birthday_page
+from app.dashboard_services.chatbot import chatbot_page
 
 def dashboard_page():
     """Main dashboard page with navigation buttons."""
@@ -40,7 +41,7 @@ def dashboard_page():
         st.session_state["dashboard_selected_service"] = None
 
     # Service buttons
-    col1, col2, col3, col4, col5, col6, col7 = st.columns(7)
+    col1, col2, col3, col4, col5, col6, col7, col8 = st.columns(8)
 
     with col1:
         if st.button("Client Management"):
@@ -63,6 +64,9 @@ def dashboard_page():
     with col7:
         if st.button("Birthdays 🎂"):
             st.session_state["dashboard_selected_service"] = "birthdays"
+    with col8:
+        if st.button("Chat with AI 🤖"):
+            st.session_state["dashboard_selected_service"] = "chatbot"
 
     if st.session_state["dashboard_selected_service"] is None:
         st.info("Welcome to Fit-Me System! Please select a service from the options above.")
@@ -81,4 +85,5 @@ def dashboard_page():
         gym_staff_page()
     elif st.session_state["dashboard_selected_service"] == "birthdays":
         birthday_page()
-
+    elif st.session_state["dashboard_selected_service"] == "chatbot":
+        chatbot_page()

@@ -24,6 +24,9 @@ from app.crud import (
     delete_task_by_phone_number,  
 )
 from app.crud import create_client, get_client_by_phone_number, get_client_by_id_number, add_group_lesson, get_all_group_lessons,add_personal_training, get_weekly_personal_trainings, move_client_to_past, get_all_past_clients,add_gym_staff, get_all_gym_staff, get_all_clients
+from httpx import AsyncClient
+from pydantic import BaseModel
+from typing import Optional
 
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
@@ -33,6 +36,11 @@ Base.metadata.create_all(bind=engine)
 
 
 app = FastAPI()
+llm_client = AsyncClient(base_url="http://llm_service:8001")
+
+class LLMChatRequest(BaseModel):
+    prompt: str
+    context: Optional[str] = None
 
 @app.get("/")
 def read_root():
@@ -110,6 +118,26 @@ def delete_user(username: str, db: Session = Depends(get_db)):
     db.delete(user)
     db.commit()
     return {"message": "User deleted successfully"}
+
+@app.post("/api/llm/chat")
+async def forward_to_llm(request: LLMChatRequest):
+    """
+    Forward chat requests to LLM service
+    """
+    logger.info(f"Forwarding chat request to LLM service: {request.prompt}")
+    try:
+        response = await llm_client.post(
+            "/chat", 
+            json=request.dict()
+        )
+        response.raise_for_status()
+        return response.json()
+    except Exception as e:
+        logger.error(f"Error communicating with LLM service: {str(e)}")
+        raise HTTPException(
+            status_code=500, 
+            detail="Failed to process LLM request"
+        )
 
 @app.post("/interested_clients/")
 def add_interested_client(client: InterestedClientCreate, db: Session = Depends(get_db)):
@@ -376,3 +404,7 @@ def delete_staff(staff_id: int, db: Session = Depends(get_db)):
     db.delete(staff_member)
     db.commit()
     return {"message": "Staff member deleted successfully"}
+
+@app.on_event("shutdown")
+async def shutdown_event():
+    await llm_client.aclose()

@@ -14,6 +14,7 @@ from app.dashboard_services.task_management import task_management_page
 from app.dashboard_services.group_lessons import group_lessons_page
 from app.dashboard_services.personal_trainings import personal_trainings_page
 from app.dashboard_services.gym_staff import gym_staff_page
+from app.dashboard_services.chatbot import chatbot_page
 
 def add_background():
     """Set the background image for the page."""
@@ -65,6 +66,8 @@ def main():
         gym_staff_page()
     elif st.session_state["current_page"] == "birthdays":
         birthday_page()
+    elif st.session_state["current_page"] == "chatbot":
+        chatbot_page()
     else:
         st.error("Page not implemented yet.")
 
