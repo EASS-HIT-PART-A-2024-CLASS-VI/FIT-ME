@@ -12,14 +12,17 @@ def chatbot_page():
         }
 
         .header-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: #1e1e1e;
-            padding: 15px;
-            border-radius: 10px;
-            margin-bottom: 10px;
-            width: 100%;
+            display: flex !important;
+            justify-content: center !important;
+            align-items: center !important;
+            background-color: #1e1e1e !important;
+            padding: 15px !important;
+            border-radius: 10px !important;
+            margin-bottom: 10px !important;
+            width: calc(100% - 40px) !important;
+            max-width: 640px !important;
+            margin-left: auto !important;
+            margin-right: auto !important;
         }
 
         .header-text {
@@ -34,10 +37,14 @@ def chatbot_page():
             color: white;
             font-size: 20px !important;
             font-weight: bold !important;
-            padding: 10px !important;
-            border-radius: 8px;
+            padding: 15px !important;
+            border-radius: 10px !important;
             text-align: center;
             margin-bottom: 10px !important;
+            width: calc(100% - 40px) !important;
+            max-width: 640px !important;
+            margin-left: auto !important;
+            margin-right: auto !important;
         }
 
         .question-box {
@@ -47,6 +54,7 @@ def chatbot_page():
             padding: 10px !important;
             border-radius: 10px !important;
             margin-bottom: 10px !important;
+            font-size: 20px !important;
         }
 
         .response-box {
@@ -73,6 +81,7 @@ def chatbot_page():
             border-radius: 5px !important;
             font-size: 18px !important;
             padding: 10px !important;
+            font-size: 20px !important;
         }
         </style>
         """,
@@ -104,8 +113,8 @@ def chatbot_page():
                 if response.status_code == 200:
                     result = response.json().get("response", "No response received.")
 
-                    st.markdown(f"<div class='question-box'>🧑‍💻 **You:** {user_input}</div>", unsafe_allow_html=True)
-                    st.markdown(f"<div class='response-box'>🤖 **AI:** {result}</div>", unsafe_allow_html=True)
+                    st.markdown(f"<div class='question-box'>💬 You: {user_input}</div>", unsafe_allow_html=True)
+                    st.markdown(f"<div class='response-box'>🤖 AI: {result}</div>", unsafe_allow_html=True)
                 else:
                     st.error("⚠️ Error communicating with the AI. Please try again.")
             else:
