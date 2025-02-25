@@ -233,7 +233,19 @@ def create_group_lesson(
 @app.get("/group_lessons/", response_model=List[GroupLessonSchedule])
 def read_group_lessons(db: Session = Depends(get_db)):
     lessons = db.query(GroupLesson).all()
-    return [GroupLessonSchedule.from_orm(lesson) for lesson in lessons]
+    return [
+        GroupLessonSchedule(
+            day=lesson.day,
+            lessons=[
+                GroupLessonCreate(
+                    day=lesson.day,
+                    time=lesson.time,
+                    class_name=lesson.class_name,
+                    instructor_name=lesson.instructor_name
+                )
+            ]
+        ) for lesson in lessons
+    ]
 
 
 @app.get("/group_lessons/schedule/", response_model=GroupLessonsResponse)
