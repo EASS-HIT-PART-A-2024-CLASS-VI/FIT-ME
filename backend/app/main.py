@@ -107,6 +107,14 @@ def get_all_users(db: Session = Depends(get_db)):
     users = db.query(User).all()
     return users
 
+@app.post("/logout/")
+def logout():
+    """
+    Logout endpoint to terminate user sessions
+    """
+    logger.info("User logged out")
+    return {"message": "Logged out successfully"}
+
 @app.delete("/users/{username}", status_code=204)
 def delete_user(username: str, db: Session = Depends(get_db)):
     """

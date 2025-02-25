@@ -8,8 +8,41 @@ from app.dashboard_services.gym_staff import gym_staff_page
 from app.dashboard_services.birthday_page import birthday_page
 from app.dashboard_services.chatbot import chatbot_page
 
+def logout_user():
+    """
+    Logout function: Clears session state and redirects to login page.
+    """
+    st.session_state["logged_in"] = False
+    st.session_state["current_page"] = "login"
+    st.session_state["dashboard_selected_service"] = None
+
+    st.rerun()
+
+
 def dashboard_page():
     """Main dashboard page with navigation buttons."""
+
+    st.markdown(
+         """
+         <style>
+             .stButton button {
+                background-color: #1e1e1e;
+                color: white !important;
+                font-weight: bold !important;
+                border: none;
+                border-radius: 5px;
+                padding: 0.5rem 1rem;
+            }
+            .stButton button:hover {
+                background-color: #1e1e1e;
+            }
+            </style>
+            """,
+            unsafe_allow_html=True
+    )
+        
+    if st.button("Logout"):
+            logout_user()
 
     st.markdown(
         """
