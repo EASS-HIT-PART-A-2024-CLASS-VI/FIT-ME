@@ -260,35 +260,33 @@ docker exec -it manage_gym_postgres psql -U gym_admin -d manage_gym_db -f /db_ba
 -   **Backend API Docs**: [http://localhost:8000/docs](http://localhost:8000/docs)
 -   **LLM Microservice**: http://localhost:8001
 
-⚡ Backend API
-The FastAPI backend provides a fully RESTful API, accessible via Swagger UI: 📌 http://localhost:8000/docs
-The FastAPI backend handles:
+⚡ **Backend API**
 
-Client and membership management
-Group lesson and personal training scheduling
-Staff management
-Task tracking
-Authentication
-AI chatbot integration
+**Client and membership management**
+**Group lesson and personal training scheduling**
+**Staff management**
+**Task tracking**
+**Authentication**
+**AI chatbot integration**
 
-📌 API Endpoints
-User Authentication API
+📌 **API Endpoints**
+**User Authentication API**
 
-POST /login/ - Authenticate user credentials
-POST /logout/ - End user session
-POST /users/ - Add a new user
-GET /users/ - Retrieve all users
-DELETE /users/{username} - Delete a user
+**POST /login/ - Authenticate user credentials**
+**POST /logout/ - End user session**
+**POST /users/ - Add a new user**
+**GET /users/ - Retrieve all users**
+**DELETE /users/{username} - Delete a user**
 
-Client Management API
+**Client Management API**
 
-POST /clients/ - Register a new client
-GET /clients/ - Retrieve all clients
-GET /clients/phone/{phone_number} - Find client by phone number
-GET /clients/id/{id_number} - Find client by ID number
-POST /clients/move_to_past/ - Move client to past clients
-GET /past_clients/ - Retrieve all past clients
-POST /interested_clients/ - Add an interested client
+**POST /clients/ - Register a new client**
+**GET /clients/ - Retrieve all clients**
+**GET /clients/phone/{phone_number} - Find client by phone number**
+**GET /clients/id/{id_number} - Find client by ID number**
+**POST /clients/move_to_past/ - Move client to past clients**
+**GET /past_clients/ - Retrieve all past clients**
+**POST /interested_clients/ - Add an interested client**
 
 Task Management API
 
@@ -296,40 +294,40 @@ POST /tasks/ - Create a new task
 GET /tasks/ - Get all tasks
 DELETE /tasks/{phone_number} - Delete a task
 
-Class & Training API
+**Class & Training API**
 
-POST /group_lessons/ - Create a group lesson
-GET /group_lessons/ - Get all group lessons
-GET /group_lessons/schedule/ - Get lessons organized by day
-DELETE /group_lessons/ - Delete a group lesson
-POST /personal_trainings/ - Schedule a personal training
-GET /personal_trainings/schedule/ - Get training schedule
-DELETE /personal_trainings/ - Cancel a training session
+**POST /group_lessons/ - Create a group lesson**
+**GET /group_lessons/ - Get all group lessons**
+**GET /group_lessons/schedule/ - Get lessons organized by day**
+**DELETE /group_lessons/ - Delete a group lesson**
+**POST /personal_trainings/ - Schedule a personal training**
+**GET /personal_trainings/schedule/ - Get training schedule**
+**DELETE /personal_trainings/ - Cancel a training session**
 
-Staff Management API
+**Staff Management API**
 
-POST /gym_staff/ - Add new staff member
-GET /gym_staff/ - Get all staff members
-DELETE /gym_staff/{staff_id} - Remove a staff member
+**POST /gym_staff/ - Add new staff member**
+**GET /gym_staff/ - Get all staff members**
+**DELETE /gym_staff/{staff_id} - Remove a staff member**
 
-AI Integration API
+**AI Integration API**
 
-POST /api/llm/chat - Get AI responses to fitness/gym queries
+**POST /api/llm/chat - Get AI responses to fitness/gym queries**
 
 
-🗄️ Database
-FitMe uses PostgreSQL as its database, with the following tables:
+**🗄️ Database**
+**FitMe uses PostgreSQL as its database, with the following tables:**
 
-users - System users with authentication credentials
-clients - Active gym members
-past_clients - Former gym members
-interested_clients - Potential clients who've shown interest
-tasks - Follow-up tasks for staff
-group_lessons - Scheduled group fitness classes
-personal_trainings - One-on-one training sessions
-gym_staff - Gym employees and trainers
+**users - System users with authentication credentials**
+**clients - Active gym members**
+**past_clients - Former gym members**
+**interested_clients - Potential clients who've shown interest**
+**tasks - Follow-up tasks for staff**
+**group_lessons - Scheduled group fitness classes**
+**personal_trainings - One-on-one training sessions**
+**gym_staff - Gym employees and trainers**
 
-Database operations are managed in crud.py, with schemas defined in schemas.py and models in models.py.
+**Database operations are managed in crud.py, with schemas defined in schemas.py and models in models.py.**
 
 ## Contact Info
 **Project Author**: Miri Y.  
