@@ -25,16 +25,36 @@ Integrated LLM-based microservice (Gemini AI) 🤖 for assisting gym employees w
   />
 </a>
 
-## Table of Contents
-1. [Technologies Used](#technologies-used)
-2. [Project Features](#project-features)
-3. [Project Structure](#project-structure)
-4. [Endpoints](#endpoints)
-5. [How to Run the Project](#how-to-run-the-project)
-6. [Future Work](#future-work)
-7. [Contact Info](#contact-info)
+### **🛠️ Diagram **  
+<p align="center">
+  <img src="diagram_readme.jpg" alt="System Architecture Diagram" width="900">
+</p>
 
----
+🔹 **System Overview:**  
+This diagram illustrates the architecture of the **FitMe Gym Management System**, showcasing the interactions between the **User Web Browser**, **Frontend Service**, **Backend Service**, **Database**, and the **LLM Microservice**.
+
+### 🧑‍💻 User Web Browser  
+- Users interact with the system via HTTP requests.
+- The frontend updates the UI dynamically based on user interactions.
+
+### 🎨 Frontend Service (Streamlit - Port 8501)  
+- Handles UI updates and interactions using Streamlit.
+- Sends requests to the backend for data processing.
+
+### ⚙️ Backend Service (FastAPI - Port 8000)  
+- Manages business logic, handles HTTP requests, and interacts with the database.
+- Processes CRUD operations and sends query results back to the frontend.
+
+### 📦 Database (PostgreSQL - Port 5432)  
+- Stores client, staff, and session data.
+- Handles SQL queries initiated by the backend.
+
+### 🤖 LLM Microservice (Gemini AI - Port 8001)  
+- Provides real-time AI assistance to gym staff.
+- Processes requests for workout recommendations and general inquiries.
+
+All services are containerized using **Docker**, ensuring seamless deployment and scalability. 🚀
+
 
 ## Technologies Used
 
