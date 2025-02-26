@@ -210,41 +210,26 @@ Clone the repository:
 git clone git@github.com:EASS-HIT-PART-A-2024-CLASS-VI/FIT-ME.git
 cd FIT-ME
 ```
-
 ---
 
 ### ✨ **Setting Up the .env File**  
-
-**To enable **Google Gemini AI**, you must create an API key from [Google AI Studio](https://aistudio.google.com/app/apikey).**
-
+**To enable Google Gemini AI, you must create an API key from [Google AI Studio](https://aistudio.google.com/app/apikey).**
 **Then, create a `.env` file in the root directory and fill it with:**
-
 ```sh
-GEMINI_API_KEY=<YOUR_API_KEY>
+GOOGLE_API_KEY=<YOUR_API_KEY>
 ```
-
- The key should not be shared, it is personal and '.env' always in gitignore.
+**The key should not be shared, it is personal and '.env' always in gitignore.**
 ---
 
-### ✨ **Setting Up the .env File**  
-
-**To enable **Google Gemini AI**, you must create an API key from [Google AI Studio](https://aistudio.google.com/app/apikey).**
-
-**Then, create a `.env` file in the root directory and fill it with:**
-
-```sh
-GEMINI_API_KEY=<YOUR_API_KEY>
-```
-
- **The key should not be shared, it is personal and '.env' always in gitignore.**
 ---
 ## 🗄️ **Setting Up the Database**
 
 **To ensure that the **PostgreSQL database** is properly set up with preloaded data, follow these steps:**
 
+## 🗄️ **Setting Up the Database**
+**To ensure that the PostgreSQL database is properly set up with preloaded data, follow these steps:**
 ### 🔥 **Starting the Database Service**
-**Run the following command to **build and start** all services, including the database, in detached mode:**
-
+**Run the following command to build and start all services, including the database, in detached mode:**
 ```sh
 docker-compose up --build -d
 ```
@@ -255,79 +240,86 @@ docker cp backend/db/db_backup_data.sql manage_gym_postgres:/db_backup_data.sql
 docker exec -it manage_gym_postgres psql -U gym_admin -d manage_gym_db -f /db_backup_data.sql 2>/dev/null
 ```
 **This will make all our microservices run in parallel using DOCKER COMPOSE**
-
 -   **Frontend**: [http://localhost:8501](http://localhost:8501)
 -   **Backend API Docs**: [http://localhost:8000/docs](http://localhost:8000/docs)
 -   **LLM Microservice**: http://localhost:8001
 
-⚡ **Backend API**
 
-**Client and membership management**
-**Group lesson and personal training scheduling**  
-**Staff management**
-**Task tracking**
-**Authentication**
-**AI chatbot integration**
+## ⚡ **Backend API**
+The FastAPI backend handles:
+- **Client and membership management**
+- **Group lesson and personal training scheduling**
+- **Staff management**
+- **Task tracking**
+- **Authentication**
+- **AI chatbot integration**
 
-📌 **API Endpoints**
-**User Authentication API**
+### 📌 **API Endpoints**
+### **User Authentication API**
+- **`POST /login/`** - Authenticate user credentials
+- **`POST /logout/`** - End user session
+- **`POST /users/`** - Add a new user
+- **`GET /users/`** - Retrieve all users
+- **`DELETE /users/{username}`** - Delete a user
 
-**POST /login/ - Authenticate user credentials**
-**POST /logout/ - End user session**
-**POST /users/ - Add a new user**
-**GET /users/ - Retrieve all users**
-**DELETE /users/{username} - Delete a user**
+### **Client Management API**
+- **`POST /clients/`** - Register a new client
+- **`GET /clients/`** - Retrieve all clients
+- **`GET /clients/phone/{phone_number}`** - Find client by phone number
+- **`GET /clients/id/{id_number}`** - Find client by ID number
+- **`POST /clients/move_to_past/`** - Move client to past clients
+- **`GET /past_clients/`** - Retrieve all past clients
+- **`POST /interested_clients/`** - Add an interested client
 
-**Client Management API**
+### **Task Management API**
+- **`POST /tasks/`** - Create a new task
+- **`GET /tasks/`** - Get all tasks
+- **`DELETE /tasks/{phone_number}`** - Delete a task
 
-**POST /clients/ - Register a new client**
-**GET /clients/ - Retrieve all clients**
-**GET /clients/phone/{phone_number} - Find client by phone number**
-**GET /clients/id/{id_number} - Find client by ID number**
-**POST /clients/move_to_past/ - Move client to past clients**
-**GET /past_clients/ - Retrieve all past clients**
-**POST /interested_clients/ - Add an interested client**
+### **Class & Training API**
+- **`POST /group_lessons/`** - Create a group lesson
+- **`GET /group_lessons/`** - Get all group lessons
+- **`GET /group_lessons/schedule/`** - Get lessons organized by day
+- **`DELETE /group_lessons/`** - Delete a group lesson
+- **`POST /personal_trainings/`** - Schedule a personal training
+- **`GET /personal_trainings/schedule/`** - Get training schedule
+- **`DELETE /personal_trainings/`** - Cancel a training session
 
-Task Management API
+### **Staff Management API**
+- **`POST /gym_staff/`** - Add new staff member
+- **`GET /gym_staff/`** - Get all staff members
+- **`DELETE /gym_staff/{staff_id}`** - Remove a staff member
 
-POST /tasks/ - Create a new task
-GET /tasks/ - Get all tasks
-DELETE /tasks/{phone_number} - Delete a task
+### **AI Integration API**
+- **`POST /api/llm/chat`** - Get AI responses to fitness/gym queries
 
-**Class & Training API**
-
-**POST /group_lessons/ - Create a group lesson**
-**GET /group_lessons/ - Get all group lessons**
-**GET /group_lessons/schedule/ - Get lessons organized by day**
-**DELETE /group_lessons/ - Delete a group lesson**
-**POST /personal_trainings/ - Schedule a personal training**
-**GET /personal_trainings/schedule/ - Get training schedule**
-**DELETE /personal_trainings/ - Cancel a training session**
-
-**Staff Management API**
-
-**POST /gym_staff/ - Add new staff member**
-**GET /gym_staff/ - Get all staff members**
-**DELETE /gym_staff/{staff_id} - Remove a staff member**
-
-**AI Integration API**
-
-**POST /api/llm/chat - Get AI responses to fitness/gym queries**
-
-
-**🗄️ Database**
+## 🗄️ **Database**
 **FitMe uses PostgreSQL as its database, with the following tables:**
+- **users** - System users with authentication credentials
+- **clients** - Active gym members
+- **past_clients** - Former gym members
+- **interested_clients** - Potential clients who've shown interest
+- **tasks** - Follow-up tasks for staff
+- **group_lessons** - Scheduled group fitness classes
+- **personal_trainings** - One-on-one training sessions
+- **gym_staff** - Gym employees and trainers
 
-**users - System users with authentication credentials**
-**clients - Active gym members**
-**past_clients - Former gym members**
-**interested_clients - Potential clients who've shown interest**
-**tasks - Follow-up tasks for staff**
-**group_lessons - Scheduled group fitness classes**
-**personal_trainings - One-on-one training sessions**
-**gym_staff - Gym employees and trainers**
+**Database operations are managed in `crud.py`, with schemas defined in `schemas.py` and models in `models.py`.
 
-**Database operations are managed in crud.py, with schemas defined in schemas.py and models in models.py.**
+
+## 🗄️ **Database**
+**FitMe uses PostgreSQL as its database, with the following tables:**
+- **users** - System users with authentication credentials
+- **clients** - Active gym members
+- **past_clients** - Former gym members
+- **interested_clients** - Potential clients who've shown interest
+- **tasks** - Follow-up tasks for staff
+- **group_lessons** - Scheduled group fitness classes
+- **personal_trainings** - One-on-one training sessions
+- **gym_staff** - Gym employees and trainers
+
+**Database operations are managed in `crud.py`, with schemas defined in `schemas.py` and models in `models.py`.
+
 
 ## 🎨 **Frontend UI Pages**
 
@@ -344,6 +336,19 @@ The Streamlit UI provides a modern, user-friendly gym management experience with
 - **👥 Gym Staff** - Staff directory with role management and system user administration capabilities.
 - **🎂 Birthdays** - Celebration tracker showing upcoming birthdays for both clients and staff members.
 - **🤖 AI Chatbot** - Gemini-powered assistant that provides instant fitness and nutrition guidance to staff.
+
+## 🤖 **LLM Microservice**
+
+The system integrates Google's Gemini 1.5 Pro model as an AI assistant through a dedicated microservice:
+
+- **FastAPI Backend** - Handles API requests and communicates with the Gemini API
+- **Specialized Knowledge** - Pre-configured with gym & fitness domain expertise
+- **System Prompt** - Comprehensive prompt template covering fitness, nutrition, strength training, injury prevention, and gym operations
+- **Contextual Responses** - Provides tailored advice based on user queries and context
+- **Integration** - Seamlessly connects with the main application through HTTP endpoints
+- **Error Handling** - Robust error management for reliable operation
+
+The LLM service enhances staff capabilities by providing instant, accurate information about workout plans, nutrition advice, training techniques, and gym management best practices without requiring specialized knowledge from every staff member.
 
 ## Contact Info
 **Project Author**: Miri Y.  
