@@ -1,7 +1,7 @@
 <h1 align="center">💪 FIT ME - Gym Management System 💪</h1>
 
 <p align="center">
-  <img src="READMEPHOTO.jpg" alt="FitMe System Preview" width="600">
+  <img src="READMEPHOTO.jpg" alt="FitMe System Preview" width="550">
 </p>
 
 📖 Overview
@@ -27,7 +27,7 @@ Integrated LLM-based microservice (Gemini AI) 🤖 for assisting gym employees w
 
 ### **🛠️ Diagram **  
 <p align="center">
-  <img src="diagram_readme.jpg" alt="System Architecture Diagram" width="900">
+  <img src="newdiagram_readme.jpg" alt="System Architecture Diagram" width="650">
 </p>
 
 🔹 **System Overview:**  
