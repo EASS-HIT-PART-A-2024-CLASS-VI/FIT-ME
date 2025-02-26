@@ -1,4 +1,4 @@
-💪 FIT ME - The Ultimate Gym Management System 💪
+💪 ** FIT ME - The Ultimate Gym Management System ** 💪
 
 📖 Overview
 ✨ FitManage is a cutting-edge gym management system designed to streamline fitness center operations. It helps efficiently manage clients, staff, group lessons, personal training sessions, and memberships.
