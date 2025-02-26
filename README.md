@@ -215,7 +215,7 @@ cd FIT-ME
 
 ### ✨ **Setting Up the .env File**  
 
-**To enable **Google Gemini AI**, you must create an API key from [Google AI Studio](https://aistudio.google.com/app/apikey). **
+**To enable **Google Gemini AI**, you must create an API key from [Google AI Studio](https://aistudio.google.com/app/apikey).**
 
 **Then, create a `.env` file in the root directory and fill it with:**
 
@@ -223,9 +223,37 @@ cd FIT-ME
 GEMINI_API_KEY=<YOUR_API_KEY>
 ```
 
-Ensure `.env` is **excluded from version control** by adding it to `.gitignore
-
+ The key should not be shared, it is personal and '.env' always in gitignore.
 ---
+
+### ✨ **Setting Up the .env File**  
+
+**To enable **Google Gemini AI**, you must create an API key from [Google AI Studio](https://aistudio.google.com/app/apikey).**
+
+**Then, create a `.env` file in the root directory and fill it with:**
+
+```sh
+GEMINI_API_KEY=<YOUR_API_KEY>
+```
+
+ The key should not be shared, it is personal and '.env' always in gitignore.
+---
+## 🗄️ **Setting Up the Database**
+
+To ensure that the **PostgreSQL database** is properly set up with preloaded data, follow these steps:
+
+### 🔥 **Starting the Database Service**
+Run the following command to **build and start** all services, including the database, in detached mode:
+
+```sh
+docker-compose up --build -d
+```
+```sh
+docker cp backend/db/db_backup_data.sql manage_gym_postgres:/db_backup_data.sql
+```
+```sh
+docker exec -it manage_gym_postgres psql -U gym_admin -d manage_gym_db -f /db_backup_data.sql 2>/dev/null
+```
 
 
 ## Contact Info
