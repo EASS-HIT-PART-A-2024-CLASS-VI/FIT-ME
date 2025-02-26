@@ -114,9 +114,6 @@ This diagram illustrates the architecture of the **FitMe Gym Management System**
 
 ---
 
-**🔥 Your system is now professionally documented with a clear, visually structured, and engaging README! Let me know if you need any adjustments.** 🎯🚀
-
-
 ## 🗂️ Project Structure 🗂️
 
 ```
