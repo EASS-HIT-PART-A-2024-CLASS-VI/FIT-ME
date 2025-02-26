@@ -1,4 +1,16 @@
-# FIT-ME Project  <img align="right" src="READMEPHOTO.jpg" width="250" style="margin-top: -50px; margin-right: -20px;">
+💪 FIT ME - The Ultimate Gym Management System 💪
+
+📖 Overview
+✨ FitManage is a cutting-edge gym management system designed to streamline fitness center operations. It helps efficiently manage clients, staff, group lessons, personal training sessions, and memberships.
+
+This system includes:
+
+Backend powered by FastAPI ⚡
+Frontend built with Streamlit 🎨
+PostgreSQL database for data management 🐘
+Integrated LLM-based microservice (Gemini AI) 🤖 for assisting gym employees with valuable insights and guidance.
+
+🔹 The Gemini AI microservice helps gym staff by providing real-time assistance, answering questions, and offering workout recommendations for better client interactions.
 
 ## Overview
 The **FIT-ME** application is a comprehensive gym management system designed to streamline gym operations.  
