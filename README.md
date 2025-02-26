@@ -31,7 +31,7 @@
 ## 🛠️ System Architecture  
 
 <p align="center">
-  <img src="diagram_readme.jpg" alt="System Architecture Diagram" width="650">
+  <img src="newdiagram.jpg" alt="System Architecture Diagram" width="650">
 </p>
 
 ### 🔹 System Overview  
