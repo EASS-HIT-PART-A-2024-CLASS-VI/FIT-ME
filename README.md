@@ -67,8 +67,7 @@ This diagram illustrates the architecture of the **FitMe Gym Management System**
 - **Python 3.10+** – The core programming language for the backend.  
 - **FastAPI ⚡** – A modern and fast web framework for building APIs.  
 - **SQLAlchemy 🗃️** – ORM for database management.  
-- **PostgreSQL 🐘** – Relational database for storing gym-related data.  
-- **CORS Middleware 🔄** – To enable frontend-backend communication.  
+- **PostgreSQL 🐘** – Relational database for storing gym-related data.   
 
 ### 🎨 Frontend:
 - **Streamlit 🎭** – A lightweight Python framework for building an interactive user interface.  
