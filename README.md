@@ -240,10 +240,10 @@ GEMINI_API_KEY=<YOUR_API_KEY>
 ---
 ## 🗄️ **Setting Up the Database**
 
-To ensure that the **PostgreSQL database** is properly set up with preloaded data, follow these steps:
+**To ensure that the **PostgreSQL database** is properly set up with preloaded data, follow these steps:**
 
 ### 🔥 **Starting the Database Service**
-Run the following command to **build and start** all services, including the database, in detached mode:
+**Run the following command to **build and start** all services, including the database, in detached mode:**
 
 ```sh
 docker-compose up --build -d
