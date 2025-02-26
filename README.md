@@ -213,11 +213,11 @@ cd FIT-ME
 
 ---
 
-### ✨ Setting Up the .env File  
+### ✨ **Setting Up the .env File**  
 
-To enable **Google Gemini AI**, you must create an API key from [Google AI Studio](https://aistudio.google.com/app/apikey).  
+**To enable **Google Gemini AI**, you must create an API key from [Google AI Studio](https://aistudio.google.com/app/apikey). **
 
-Then, create a `.env` file in the root directory and fill it with:
+**Then, create a `.env` file in the root directory and fill it with:**
 
 ```sh
 GEMINI_API_KEY=<YOUR_API_KEY>
@@ -227,38 +227,6 @@ Ensure `.env` is **excluded from version control** by adding it to `.gitignore
 
 ---
 
-## How to Run the Project
-
-### Prerequisites
-- Docker and Docker Compose installed.
-
-### Steps
-1. **Clone the Repository**:
-   ```bash
-   git clone git@github.com:EASS-HIT-PART-A-2024-CLASS-VI/FIT-ME.git
-   cd FIT-ME
-   ```
-2. **Build and Run Containers**:
-   ```bash
-   docker-compose up --build
-   ```
-   - The backend will be available at: `http://localhost:8000`
-   - Explore API docs at: `http://localhost:8000/docs`
-
-3. **Access PostgreSQL**:
-   ```bash
-   docker exec -it manage_gym_postgres psql -U gym_admin -d manage_gym_db
-   ```
-
----
-
-## Future Work
-- Add a compatible frontend to interact with the backend.
-- Update the backend to meet the requirements of the frontend.
-- Create a user-friendly design for the application.
-- Improve communication between backend and frontend components.
-
----
 
 ## Contact Info
 **Project Author**: Miri Y.  
