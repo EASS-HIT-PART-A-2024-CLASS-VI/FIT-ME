@@ -218,9 +218,6 @@ GOOGLE_API_KEY=<YOUR_API_KEY>
 ---
 
 ---
-## 🗄️ **Setting Up the Database**
-
-**To ensure that the **PostgreSQL database** is properly set up with preloaded data, follow these steps:**
 
 ## 🗄️ **Setting Up the Database**
 **To ensure that the PostgreSQL database is properly set up with preloaded data, follow these steps:**
