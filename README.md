@@ -329,6 +329,11 @@ The system integrates Google's Gemini 1.5 Pro model as an AI assistant through a
 
 The LLM service enhances staff capabilities by providing instant, accurate information about workout plans, nutrition advice, training techniques, and gym management best practices without requiring specialized knowledge from every staff member.
 
+## 🙌 **Thank You!**
+
+Thank you for your time! I hope everything was clear. For any questions or suggestions, feel free to reach out. 😊
+
+
 ## Contact Info
 **Project Author**: Miri Y.  
 **Email**:(mailto:miriamyakobson200021@gmail.com)  
