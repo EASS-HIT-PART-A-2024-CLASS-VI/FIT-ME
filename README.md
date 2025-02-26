@@ -1,4 +1,4 @@
-💪 ** FIT ME - The Ultimate Gym Management System ** 💪
+<h1 align="center">💪 FIT ME - The Ultimate Gym Management System 💪</h1>
 
 <p align="center">
   <img src="READMEPHOTO.jpg" alt="FitMe System Preview" width="600">
