@@ -215,6 +215,7 @@ cd FIT-ME
 GOOGLE_API_KEY=<YOUR_API_KEY>
 ```
 **The key should not be shared, it is personal and '.env' always in gitignore.**
+**Make the .evn file in the general dir - nano .evn"
 ---
 
 ---
