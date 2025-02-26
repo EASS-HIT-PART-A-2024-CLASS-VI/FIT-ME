@@ -36,15 +36,19 @@ This diagram illustrates the architecture of the **FitMe Gym Management System**
 ### 🧑‍💻 User Web Browser  
 - Users interact with the system via HTTP requests.
 - The frontend updates the UI dynamically based on user interactions.
+  
 ### 🎨 Frontend Service (Streamlit - Port 8501)  
 - Handles UI updates and interactions using Streamlit.
 - Sends requests to the backend for data processing.
+  
 ### ⚙️ Backend Service (FastAPI - Port 8000)  
 - Manages business logic, handles HTTP requests, and interacts with the database.
 - Processes CRUD operations and sends query results back to the frontend.
+  
 ### 📦 Database (PostgreSQL - Port 5432)  
 - Stores client, staff, and session data.
 - Handles SQL queries initiated by the backend.
+  
 ### 🤖 LLM Microservice (Gemini AI - Port 8001)  
 - Provides real-time AI assistance to gym staff.
 - Processes requests for workout recommendations and general inquiries.
