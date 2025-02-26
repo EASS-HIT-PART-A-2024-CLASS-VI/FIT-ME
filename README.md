@@ -263,7 +263,7 @@ docker exec -it manage_gym_postgres psql -U gym_admin -d manage_gym_db -f /db_ba
 ⚡ **Backend API**
 
 **Client and membership management**
-**Group lesson and personal training scheduling**
+**Group lesson and personal training scheduling**  
 **Staff management**
 **Task tracking**
 **Authentication**
@@ -328,6 +328,22 @@ DELETE /tasks/{phone_number} - Delete a task
 **gym_staff - Gym employees and trainers**
 
 **Database operations are managed in crud.py, with schemas defined in schemas.py and models in models.py.**
+
+## 🎨 **Frontend UI Pages**
+
+The Streamlit UI provides a modern, user-friendly gym management experience with intuitive pages:
+
+### ✨ **UI Pages**
+- **📊 Dashboard** - Central navigation hub with access to all system services and a convenient logout button.
+- **🔐 Login Page** - Secure authentication interface with username/password fields against backend verification.
+- **👤 Client Management** - Comprehensive interface for registering, searching, and managing gym members with Excel export functionality.
+- **🆕 Add Interested Client** - Simple form to capture potential client information that automatically generates follow-up tasks.
+- **📝 Task Management** - Organizes follow-up tasks with creation and deletion capabilities for staff to track leads.
+- **📆 Group Lessons** - Interactive schedule display with tools to add/delete classes and export timetables to Excel.
+- **💪 Personal Trainings** - Day-by-day training session management with trainer-trainee assignment functionality.
+- **👥 Gym Staff** - Staff directory with role management and system user administration capabilities.
+- **🎂 Birthdays** - Celebration tracker showing upcoming birthdays for both clients and staff members.
+- **🤖 AI Chatbot** - Gemini-powered assistant that provides instant fitness and nutrition guidance to staff.
 
 ## Contact Info
 **Project Author**: Miri Y.  
