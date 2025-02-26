@@ -235,7 +235,7 @@ docker exec -it manage_gym_postgres psql -U gym_admin -d manage_gym_db -f /db_ba
 **This will make all our microservices run in parallel using DOCKER COMPOSE**
 -   **Frontend**: [http://localhost:8501](http://localhost:8501)
 -   **Backend API Docs**: [http://localhost:8000/docs](http://localhost:8000/docs)
--   **LLM Microservice**: http://localhost:8001
+-   **LLM Microservice**: http://localhost:8001/docs
 
 
 ## ⚡ **Backend API**
