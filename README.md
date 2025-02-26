@@ -1,4 +1,4 @@
-<h1 align="center">💪 FIT ME - The Ultimate Gym Management System 💪</h1>
+<h1 align="center">💪 FIT ME - Gym Management System 💪</h1>
 
 <p align="center">
   <img src="READMEPHOTO.jpg" alt="FitMe System Preview" width="600">
@@ -16,17 +16,14 @@ Integrated LLM-based microservice (Gemini AI) 🤖 for assisting gym employees w
 
 🔹 The Gemini AI microservice helps gym staff by providing real-time assistance, answering questions, and offering workout recommendations for better client interactions.
 
-## Overview
-The **FIT-ME** application is a comprehensive gym management system designed to streamline gym operations.  
-It includes features for managing client registrations, handling group and personal training schedules,  
-tracking staff roles, and monitoring task assignments to ensure efficient workflows.  
-The system aims to provide a seamless and user-friendly experience for both gym staff and members.  
-
-The backend is built using **FastAPI**, containerized with **Docker**, and communicates with a **PostgreSQL** database  
-for data management and storage.  
-
-In the future, this project will also include a **frontend** designed to interact seamlessly with the backend.
----
+## 🎥 Demo
+<a href="https://www.youtube.com/watch?v=rFVFRGR11w0" target="_blank">
+  <img 
+    src="readme2.jpg"
+    alt="FitMe Demo"
+    width="100%"
+  />
+</a>
 
 ## Table of Contents
 1. [Technologies Used](#technologies-used)
