@@ -236,7 +236,7 @@ GEMINI_API_KEY=<YOUR_API_KEY>
 GEMINI_API_KEY=<YOUR_API_KEY>
 ```
 
- The key should not be shared, it is personal and '.env' always in gitignore.
+ **The key should not be shared, it is personal and '.env' always in gitignore.**
 ---
 ## 🗄️ **Setting Up the Database**
 
@@ -254,6 +254,11 @@ docker cp backend/db/db_backup_data.sql manage_gym_postgres:/db_backup_data.sql
 ```sh
 docker exec -it manage_gym_postgres psql -U gym_admin -d manage_gym_db -f /db_backup_data.sql 2>/dev/null
 ```
+**This will make all our microservices run in parallel using DOCKER COMPOSE**
+
+-   **Frontend**: [http://localhost:8501](http://localhost:8501)
+-   **Backend API Docs**: [http://localhost:8000/docs](http://localhost:8000/docs)
+-   **LLM Microservice**: http://localhost:8001
 
 
 ## Contact Info
