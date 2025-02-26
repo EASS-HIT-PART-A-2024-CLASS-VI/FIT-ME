@@ -202,29 +202,28 @@ manage_gym/
 
 ---
 
-## Endpoints
+## Project Setup 🛠️
 
-### User Management
-- **POST /login/**
-  - Login with username and password.
+Clone the repository:
 
-### Client Management
-- **POST /clients/**: Add a new client.
-- **GET /clients/phone/{phone_number}**: Fetch client by phone number.
-- **POST /clients/move_to_past/**: Move client to past clients.
+```sh
+git clone git@github.com:EASS-HIT-PART-A-2024-CLASS-VI/FIT-ME.git
+cd FIT-ME
+```
 
-### Task Management
-- **POST /tasks/**: Create a new task.
-- **GET /tasks/**: Fetch all tasks.
-- **DELETE /tasks/{phone_number}**: Delete a task by phone number.
+---
 
-### Group Lessons
-- **POST /group_lessons/**: Add a new group lesson.
-- **GET /group_lessons/**: Fetch all group lessons.
+### ✨ Setting Up the .env File  
 
-### Personal Training
-- **POST /personal_trainings/**: Add a personal training session.
-- **GET /personal_trainings/schedule/**: Fetch the weekly training schedule.
+To enable **Google Gemini AI**, you must create an API key from [Google AI Studio](https://aistudio.google.com/app/apikey).  
+
+Then, create a `.env` file in the root directory and fill it with:
+
+```sh
+GEMINI_API_KEY=<YOUR_API_KEY>
+```
+
+Ensure `.env` is **excluded from version control** by adding it to `.gitignore
 
 ---
 
@@ -236,8 +235,8 @@ manage_gym/
 ### Steps
 1. **Clone the Repository**:
    ```bash
-   git clone https://github.com/miri-y/manage_gym.git
-   cd manage_gym
+   git clone git@github.com:EASS-HIT-PART-A-2024-CLASS-VI/FIT-ME.git
+   cd FIT-ME
    ```
 2. **Build and Run Containers**:
    ```bash
