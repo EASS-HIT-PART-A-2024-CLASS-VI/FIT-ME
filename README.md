@@ -21,7 +21,7 @@ Integrated LLM-based microservice (Gemini AI) 🤖 for assisting gym employees w
   <img 
     src="readme2.jpg"
     alt="FitMe Demo"
-    width="100%"
+    width="80%"
   />
 </a>
 
