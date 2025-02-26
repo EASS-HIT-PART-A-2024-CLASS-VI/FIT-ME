@@ -27,7 +27,7 @@ Integrated LLM-based microservice (Gemini AI) 🤖 for assisting gym employees w
 
 ### **🛠️ Diagram **  
 <p align="center">
-  <img src="newdiagram_readme.jpg" alt="System Architecture Diagram" width="650">
+  <img src="newdiagram_readme.jpg" alt="System Architecture Diagram" width="650" align="center>
 </p>
 
 🔹 **System Overview:**  
