@@ -5,18 +5,18 @@
 </p>
 
 📖 Overview
-✨ FitManage is a cutting-edge gym management system designed to streamline fitness center operations. It helps efficiently manage clients, staff, group lessons, personal training sessions, and memberships.
+✨ **FitManage is a cutting-edge gym management system designed to streamline fitness center operations. It helps efficiently manage clients, staff, group lessons, personal training sessions, and memberships.
 
-This system includes:
+**This system includes:
 
-Backend powered by FastAPI ⚡
-Frontend built with Streamlit 🎨
-PostgreSQL database for data management 🐘
-Integrated LLM-based microservice (Gemini AI) 🤖 for assisting gym employees with valuable insights and guidance.
+**Backend powered by FastAPI ⚡
+**Frontend built with Streamlit 🎨
+**PostgreSQL database for data management 🐘
+**Integrated LLM-based microservice (Gemini AI) 🤖 for assisting gym employees with valuable insights and guidance.
 
-🔹 The Gemini AI microservice helps gym staff by providing real-time assistance, answering questions, and offering workout recommendations for better client interactions.
+🔹 **The Gemini AI microservice helps gym staff by providing real-time assistance, answering questions, and offering workout recommendations for better client interactions.
 
-## 🎥 Demo
+## 🎥 **Demo
 <a href="https://www.youtube.com/watch?v=rFVFRGR11w0" target="_blank">
   <img 
     src="readme2.jpg"
@@ -25,7 +25,7 @@ Integrated LLM-based microservice (Gemini AI) 🤖 for assisting gym employees w
   />
 </a>
 
-### **🛠️ Diagram **  
+### **🛠️ **Diagram **  
 <p align="center">
   <img src="newdiagram.jpg" alt="System Architecture Diagram" width="650">
 </p>
@@ -33,23 +33,23 @@ Integrated LLM-based microservice (Gemini AI) 🤖 for assisting gym employees w
 🔹 **System Overview:**  
 This diagram illustrates the architecture of the **FitMe Gym Management System**, showcasing the interactions between the **User Web Browser**, **Frontend Service**, **Backend Service**, **Database**, and the **LLM Microservice**.
 
-### 🧑‍💻 User Web Browser  
+### 🧑‍💻 **User Web Browser  
 - Users interact with the system via HTTP requests.
 - The frontend updates the UI dynamically based on user interactions.
   
-### 🎨 Frontend Service (Streamlit - Port 8501)  
+### 🎨 **Frontend Service (Streamlit - Port 8501)  
 - Handles UI updates and interactions using Streamlit.
 - Sends requests to the backend for data processing.
   
-### ⚙️ Backend Service (FastAPI - Port 8000)  
+### ⚙️ **Backend Service (FastAPI - Port 8000)  
 - Manages business logic, handles HTTP requests, and interacts with the database.
 - Processes CRUD operations and sends query results back to the frontend.
   
-### 📦 Database (PostgreSQL - Port 5432)  
+### 📦 **Database (PostgreSQL - Port 5432)  
 - Stores client, staff, and session data.
 - Handles SQL queries initiated by the backend.
   
-### 🤖 LLM Microservice (Gemini AI - Port 8001)  
+### 🤖 **LLM Microservice (Gemini AI - Port 8001)  
 - Provides real-time AI assistance to gym staff.
 - Processes requests for workout recommendations and general inquiries.
 
