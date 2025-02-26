@@ -300,20 +300,6 @@ The FastAPI backend handles:
 **Database operations are managed in `crud.py`, with schemas defined in `schemas.py` and models in `models.py`.
 
 
-## 🗄️ **Database**
-**FitMe uses PostgreSQL as its database, with the following tables:**
-- **users** - System users with authentication credentials
-- **clients** - Active gym members
-- **past_clients** - Former gym members
-- **interested_clients** - Potential clients who've shown interest
-- **tasks** - Follow-up tasks for staff
-- **group_lessons** - Scheduled group fitness classes
-- **personal_trainings** - One-on-one training sessions
-- **gym_staff** - Gym employees and trainers
-
-**Database operations are managed in `crud.py`, with schemas defined in `schemas.py` and models in `models.py`.
-
-
 ## 🎨 **Frontend UI Pages**
 
 The Streamlit UI provides a modern, user-friendly gym management experience with intuitive pages:
