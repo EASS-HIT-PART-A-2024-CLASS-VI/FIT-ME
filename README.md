@@ -88,26 +88,26 @@
 ## 🚀 Project Features  
 
 ### 🏋️ Client & Membership Management  
-- ✅ **Register, view, and manage** gym members easily.  
-- ✅ **Move past members** to an archive for history tracking.  
+- **Register, view, and manage** gym members easily.  
+- **Move past members** to an archive for history tracking.  
 
 ### 📅 Group Lessons & Personal Training  
-- ✅ **Schedule, update, and cancel** group lessons with assigned trainers.  
-- ✅ **View an organized weekly schedule** of group lessons and personal training.  
+- **Schedule, update, and cancel** group lessons with assigned trainers.  
+- **View an organized weekly schedule** of group lessons and personal training.  
 
 ### 🔥 Lead & Task Management  
-- ✅ **Store and manage** potential client leads.  
-- ✅ **Automatically generate follow-up tasks** for interested clients.  
-- ✅ **Track and update** lead status for gym sales team.  
+- **Store and manage** potential client leads.  
+- **Automatically generate follow-up tasks** for interested clients.  
+- **Track and update** lead status for gym sales team.  
 
 ### 🏢 Gym Staff Management  
-- ✅ **Add, view, and manage** gym employees (trainers, receptionists, managers).  
-- ✅ **Assign roles** with responsibilities (trainer, receptionist, manager).  
+- **Add, view, and manage** gym employees (trainers, receptionists, managers).  
+- **Assign roles** with responsibilities (trainer, receptionist, manager).  
 
 ### 🤖 AI-Powered Assistance (Gemini AI)  
-- ✅ **Receive real-time suggestions** for client fitness programs.  
-- ✅ **Get instant AI-powered insights** for gym operations and customer service.  
-- ✅ **Help gym staff** with fitness-related queries using natural language processing.  
+- **Receive real-time suggestions** for client fitness programs.  
+- **Get instant AI-powered insights** for gym operations and customer service.  
+- **Help gym staff** with fitness-related queries using natural language processing.  
 
 🔹 **This system streamlines gym operations, optimizes staff workflow, and enhances client engagement!** 🚀💪  
 
@@ -228,7 +228,7 @@ nano .env
 
 ## 🗄️ **Setting Up the Database**
 **To ensure that the PostgreSQL database is properly set up with preloaded data, follow these steps:**
-### 🔥 **Starting the Database Service**
+### 📌 **Starting the Database Service**
 **Run the following command to build and start all services, including the database, in detached mode:**
 ```sh
 docker-compose up --build -d
@@ -249,7 +249,7 @@ docker exec -it manage_gym_postgres psql -U gym_admin -d manage_gym_db -f /db_ba
 
 **To ensure that the system works correctly, you can run **automated tests** using `pytest`. These tests validate key functionalities such as** **user authentication, client management, task creation, and gym staff operations**.
 
-### 🔥 **How to Run Tests**
+### 📌 **How to Run Tests**
 **Before running the backend tests, ensure that the system is up and running. If it is not running, start it with:**
 
 ```bash
