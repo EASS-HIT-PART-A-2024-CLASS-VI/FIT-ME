@@ -22,7 +22,7 @@
 
 <p align="center">
   <a href="https://www.youtube.com/watch?v=rFVFRGR11w0" target="_blank">
-    <img src="readme2.jpg" alt="FitMe Demo" width="80%">
+    <img src="loginpage.jpg" alt="FitMe Demo" width="80%">
   </a>
 </p>
 
@@ -374,7 +374,7 @@ The Streamlit UI provides a modern, user-friendly gym management experience with
 - **🤖 AI Chatbot** - Gemini-powered assistant that provides instant fitness and nutrition guidance to staff.
 
 <p align="center">
-  <img src="readme1.jpg" alt="FitMe System Preview" width="700">
+  <img src="mainpage.jpg" alt="FitMe System Preview" width="700">
 </p>
 
 ---
