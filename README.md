@@ -374,7 +374,7 @@ The Streamlit UI provides a modern, user-friendly gym management experience with
 - **🤖 AI Chatbot** - Gemini-powered assistant that provides instant fitness and nutrition guidance to staff.
 
 <p align="center">
-  <img src="mainpage.jpg" alt="FitMe System Preview" width="700">
+  <img src="mainpage.jpg" alt="FitMe System Preview" width="800">
 </p>
 
 ---
