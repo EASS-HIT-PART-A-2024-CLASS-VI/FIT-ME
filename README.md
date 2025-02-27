@@ -254,19 +254,19 @@ docker exec -it manage_gym_postgres psql -U gym_admin -d manage_gym_db -f /db_ba
 To ensure that the system works correctly, you can run **automated tests** using `pytest`. These tests validate key functionalities such as **user authentication, client management, task creation, and gym staff operations**.
 
 ### 🔥 **How to Run Tests**
-Before running the tests, ensure that the system is up and running. If it is not running, start it with:
+**Before running the tests, ensure that the system is up and running. If it is not running, start it with:**
 
 ```bash
 docker-compose up --build -d
 ```
 
-Once the system is running, execute the following command to run all tests:
+**Once the system is running, execute the following command to run all tests:**
 
 ```bash
 docker exec -it manage_gym_backend pytest /app/tests --disable-warnings
 ```
 
-✅ This command will execute all test cases located in the `backend/tests/` directory.
+✅ **This command will execute all test cases located in the `backend/tests/` directory.**
 
  **By running these tests, you can ensure that all core functionalities of the system are operating correctly!** 🎯
 
