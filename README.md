@@ -328,7 +328,7 @@ The FastAPI backend handles:
 - **personal_trainings** - One-on-one training sessions
 - **gym_staff** - Gym employees and trainers
 
-**Database operations are managed in `crud.py`, with schemas defined in `schemas.py` and models in `models.py`.
+**Database operations are managed in `crud.py`, with schemas defined in `schemas.py` and models in `models.py`.**
 
 
 ## 🎨 **Frontend UI Pages**
