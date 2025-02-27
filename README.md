@@ -244,26 +244,30 @@ docker exec -it manage_gym_postgres psql -U gym_admin -d manage_gym_db -f /db_ba
 -   **Backend API Docs**: [http://localhost:8000/docs](http://localhost:8000/docs)
 -   **LLM Microservice**: http://localhost:8001/docs
 
-## 🌙 Enabling Dark Mode
+## 🎨 **Enable Dark Mode & Wide Mode for Correct System Display**
 
-**After the system is up switch to **Dark Mode** in the system settings. Follow the steps below:**
+For the system to function **correctly**, **Dark Mode** and **Wide Mode** must be enabled. This ensures the best visual experience and correct layout.
 
-1.** Click on the **three dots** in the top-right corner of the interface. (See image below)**
-
+### 🌙 **Enable Dark Mode**
+1. Click on the three dots **(⋮)** in the top-right corner of the app.
+2. Select **Settings** from the dropdown menu.
    <p align="left">
      <img src="guide1.jpg" alt="Opening settings menu" width="250">
    </p>
 
-2. **In the menu, select settings.**
-3. **In the **Appearance** section, enable **Wide mode** and select **Dark** from the theme options. (See image below)**
-
+3. In the **Settings** panel, find the **Appearance** section.
+4. Choose **Dark Mode** from the dropdown menu.
    <p align="left">
      <img src="guide2.jpg" alt="Enabling Dark Mode" width="250">
    </p>
+   
+### 📺 **Enable Wide Mode**
+1. In the **Settings** panel (as shown above), check the box labeled **Wide mode**.
 
-✅ **Your system is now in Dark Mode!** **This will improve visibility and reduce eye strain while using the application.**
+🚨 **Important:** The system is designed to run in **Dark Mode & Wide Mode**.  
+This is the **only correct way** to use the application.
 
-
+```
 
 ## 🧪 **Running Tests**
 
@@ -285,7 +289,6 @@ docker exec -it manage_gym_backend pytest /app/tests --disable-warnings
 ✅ **This command will execute all test cases located in the `backend/tests/` directory.**
 
  **By running these tests, you can ensure that all core functionalities of the system backend are operating correctly!** 🎯
-
 
 
 ## ⚡ **Backend API**
