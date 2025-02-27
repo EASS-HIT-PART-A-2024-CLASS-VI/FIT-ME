@@ -340,6 +340,8 @@ The FastAPI backend handles:
 ### **AI Integration API**
 - **`POST /api/llm/chat`** - Get AI responses to fitness/gym queries
 
+---
+
 ## 🗄️ **Database**
 **FitMe uses PostgreSQL as its database, with the following tables:**
 - **users** - System users with authentication credentials
