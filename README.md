@@ -208,15 +208,25 @@ cd FIT-ME
 ```
 ---
 
-### ✨ **Setting Up the .env File**  
-**To enable Google Gemini AI, you must create an API key from [Google AI Studio](https://aistudio.google.com/app/apikey).**
-**Then, create a `.env` file in the root directory and fill it with:**
+### 🔑 **Setting Up the .env File**  
+
+To enable **Google Gemini AI**, you must create an API key from [Google AI Studio](https://aistudio.google.com/app/apikey).
+
+Then, create a `.env` file in the general directory and fill it with:
+
 ```sh
-GOOGLE_API_KEY=<YOUR_API_KEY>
+GEMINI_API_KEY=<YOUR_API_KEY>
 ```
-The key should not be shared, it is personal and '.env' always in gitignore.
-**Make the .evn file in the general dir - nano .evn"**
----
+
+The key should not be shared, it is personal, and `.env` should always be in `.gitignore`.
+
+**Make the `.env` file in the general directory:**
+
+```sh
+nano .env
+```
+
+
 
 ---
 
