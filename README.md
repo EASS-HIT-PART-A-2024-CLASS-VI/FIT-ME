@@ -244,6 +244,26 @@ docker exec -it manage_gym_postgres psql -U gym_admin -d manage_gym_db -f /db_ba
 -   **Backend API Docs**: [http://localhost:8000/docs](http://localhost:8000/docs)
 -   **LLM Microservice**: http://localhost:8001/docs
 
+## 🌙 Enabling Dark Mode
+
+**After the system is up switch to **Dark Mode** in the system settings. Follow the steps below:**
+
+**1. Click on the **three dots** in the top-right corner of the interface. (See image below)**
+
+   <p align="center">
+     <img src="guide1.png" alt="Opening settings menu" width="350">
+   </p>
+
+**2. In the menu, select **Settings**.**
+**3. In the **Appearance** section, enable **Wide mode** and select **Dark** from the theme options. (See image below)**
+
+   <p align="center">
+     <img src="guide2.png" alt="Enabling Dark Mode" width="450">
+   </p>
+
+✅ **Your system is now in Dark Mode!** **This will improve visibility and reduce eye strain while using the application.**
+
+
 
 ## 🧪 **Running Tests**
 
