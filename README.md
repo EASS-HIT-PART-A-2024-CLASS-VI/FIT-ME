@@ -258,7 +258,7 @@ For the system to function **correctly**, **Dark Mode** and **Wide Mode** must b
 3. In the **Settings** panel, find the **Appearance** section.
 4. Choose **Dark Mode** from the dropdown menu.
    <p align="left">
-     <img src="guide2.jpg" alt="Enabling Dark Mode" width="280">
+     <img src="guide2.jpg" alt="Enabling Dark Mode" width="290">
    </p>
    
 ### 📺 **Enable Wide Mode**
