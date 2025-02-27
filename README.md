@@ -267,7 +267,7 @@ For the system to function **correctly**, **Dark Mode** and **Wide Mode** must b
 🚨 **Important:** The system is designed to run in **Dark Mode & Wide Mode**.  
 This is the **only correct way** to use the application.
 
-```
+---
 
 ## 🧪 **Running Tests**
 
