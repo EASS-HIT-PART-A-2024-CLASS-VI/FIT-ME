@@ -39,23 +39,23 @@
 
 ### 🧑‍💻 User Web Browser  
 - **Users interact with the system via HTTP requests.**
-- The frontend updates the UI dynamically based on user interactions.  
+- **The frontend updates the UI dynamically based on user interactions.**
 
 ### 🎨 Frontend Service (Streamlit - Port 8501)  
-- Handles UI updates and interactions using Streamlit.  
-- Sends requests to the backend for data processing.  
+- **Handles UI updates and interactions using Streamlit.**
+- **Sends requests to the backend for data processing.**
 
 ### ⚙️ Backend Service (FastAPI - Port 8000)  
-- Manages business logic, handles HTTP requests, and interacts with the database.  
-- Processes CRUD operations and sends query results back to the frontend.  
+- **Manages business logic, handles HTTP requests, and interacts with the database.** 
+- **Processes CRUD operations and sends query results back to the frontend.**  
 
 ### 📦 Database (PostgreSQL - Port 5432)  
-- Stores client, staff, and session data.  
-- Handles SQL queries initiated by the backend.  
+- **Stores client, staff, and session data.**  
+- **Handles SQL queries initiated by the backend.**
 
 ### 🤖 LLM Microservice (Gemini AI - Port 8001)  
-- Provides real-time AI assistance to gym staff.  
-- Processes requests for workout recommendations and general inquiries.  
+- **Provides real-time AI assistance to gym staff.**
+- **Processes requests for workout recommendations and general inquiries.**
 
 🔹 **All services are containerized using Docker, ensuring seamless deployment and scalability.** 🚀  
 
@@ -64,24 +64,24 @@
 ## 🛠️ Technologies Used  
 
 ### 🖥️ Backend:
-- **Python 3.10+** – The core programming language for the backend.  
-- **FastAPI ⚡** – A modern and fast web framework for building APIs.  
-- **SQLAlchemy 🗃️** – ORM for database management.  
-- **PostgreSQL 🐘** – Relational database for storing gym-related data.   
+- **Python 3.10+** – **The core programming language for the backend.** 
+- **FastAPI ⚡** – **A modern and fast web framework for building APIs.**
+- **SQLAlchemy 🗃️** – **ORM for database management.**  
+- **PostgreSQL 🐘** – **Relational database for storing gym-related data.**   
 
 ### 🎨 Frontend:
-- **Streamlit 🎭** – A lightweight Python framework for building an interactive user interface.  
+- **Streamlit 🎭** – **A lightweight Python framework for building an interactive user interface.**  
 
 ### 🧠 AI Microservice:
-- **Gemini AI 🤖** – An LLM-based microservice providing real-time assistance to gym staff.  
-- **FastAPI-based LLM Service 🚀** – Handles AI interactions and suggestions for trainers and staff.  
+- **Gemini AI 🤖** – **An LLM-based microservice providing real-time assistance to gym staff.**
+- **FastAPI-based LLM Service 🚀** – **Handles AI interactions and suggestions for trainers and staff.**  
 
 ### 🗄️ Database:
-- **PostgreSQL 🐘** – A powerful open-source relational database storing all user, training, and membership data.  
+- **PostgreSQL 🐘** – **A powerful open-source relational database storing all user, training, and membership data.**
 
 ### 🐳 Containerization:
-- **Docker 🐳** – Creates isolated containers for the backend, frontend, database, and LLM microservice.  
-- **Docker Compose 🔧** – Orchestrates multi-container services, ensuring smooth interaction between all components.  
+- **Docker 🐳** – **Creates isolated containers for the backend, frontend, database, and LLM microservice.**
+- **Docker Compose 🔧** – **Orchestrates multi-container services, ensuring smooth interaction between all components.**
 
 ---
 
