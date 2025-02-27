@@ -6,7 +6,7 @@
 
 ## 📖 Overview  
 
-✨ **FitManage** is a cutting-edge gym management system designed to streamline fitness center operations. It helps efficiently manage clients, staff, group lessons, personal training sessions, and memberships.
+✨ **FitManage** **is a cutting-edge gym management system designed to streamline fitness center operations. It helps efficiently manage clients, staff, group lessons, personal training sessions, and memberships.**
 
 ### 🔹 This system includes:
 - **⚡ Backend powered by FastAPI**
@@ -195,7 +195,6 @@ manage_gym/
 ├── readme1.jpg
 └── readme2.jpg
 ```
-
 ---
 
 ## Project Setup 🛠️
@@ -225,9 +224,6 @@ The key should not be shared, it is personal, and `.env` should always be in `.g
 ```sh
 nano .env
 ```
-
-
-
 ---
 
 ## 🗄️ **Setting Up the Database**
@@ -251,7 +247,7 @@ docker exec -it manage_gym_postgres psql -U gym_admin -d manage_gym_db -f /db_ba
 
 ## 🧪 **Running Tests**
 
-To ensure that the system works correctly, you can run **automated tests** using `pytest`. These tests validate key functionalities such as **user authentication, client management, task creation, and gym staff operations**.
+**To ensure that the system works correctly, you can run **automated tests** using `pytest`. These tests validate key functionalities such as** **user authentication, client management, task creation, and gym staff operations**.
 
 ### 🔥 **How to Run Tests**
 **Before running the tests, ensure that the system is up and running. If it is not running, start it with:**
