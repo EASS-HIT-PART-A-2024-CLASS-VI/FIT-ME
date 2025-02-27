@@ -70,17 +70,17 @@
 - **PostgreSQL 🐘** – **Relational database for storing gym-related data.**   
 
 ### 🎨 Frontend:
-- **Streamlit 🎭** – **A lightweight Python framework for building an interactive user interface.**  
+- **Streamlit** – **A lightweight Python framework for building an interactive user interface.**  
 
 ### 🧠 AI Microservice:
-- **Gemini AI 🤖** – **An LLM-based microservice providing real-time assistance to gym staff.**
+- **Gemini AI** – **An LLM-based microservice providing real-time assistance to gym staff.**
 - **FastAPI-based LLM Service 🚀** – **Handles AI interactions and suggestions for trainers and staff.**  
 
 ### 🗄️ Database:
-- **PostgreSQL 🐘** – **A powerful open-source relational database storing all user, training, and membership data.**
+- **PostgreSQL** – **A powerful open-source relational database storing all user, training, and membership data.**
 
 ### 🐳 Containerization:
-- **Docker 🐳** – **Creates isolated containers for the backend, frontend, database, and LLM microservice.**
+- **Docker** – **Creates isolated containers for the backend, frontend, database, and LLM microservice.**
 - **Docker Compose 🔧** – **Orchestrates multi-container services, ensuring smooth interaction between all components.**
 
 ---
