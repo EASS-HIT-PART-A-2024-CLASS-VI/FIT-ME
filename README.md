@@ -250,14 +250,14 @@ docker exec -it manage_gym_postgres psql -U gym_admin -d manage_gym_db -f /db_ba
 
 **1. Click on the **three dots** in the top-right corner of the interface. (See image below)**
 
-   <p align="center">
+   <p align="left">
      <img src="guide1.jpg" alt="Opening settings menu" width="250">
    </p>
 
 **2. In the menu, select **Settings**.**
 **3. In the **Appearance** section, enable **Wide mode** and select **Dark** from the theme options. (See image below)**
 
-   <p align="center">
+   <p align="left">
      <img src="guide2.jpg" alt="Enabling Dark Mode" width="250">
    </p>
 
