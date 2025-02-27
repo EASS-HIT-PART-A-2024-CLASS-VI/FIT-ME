@@ -289,7 +289,7 @@ docker exec -it manage_gym_backend pytest /app/tests --disable-warnings
 ✅ **This command will execute all test cases located in the `backend/tests/` directory.**
 
  **By running these tests, you can ensure that all core functionalities of the system backend are operating correctly!** 🎯
-
+---
 
 ## ⚡ **Backend API**
 The FastAPI backend handles:
@@ -352,6 +352,7 @@ The FastAPI backend handles:
 
 **Database operations are managed in `crud.py`, with schemas defined in `schemas.py` and models in `models.py`.**
 
+---
 
 ## 🎨 **Frontend UI Pages**
 
@@ -372,6 +373,8 @@ The Streamlit UI provides a modern, user-friendly gym management experience with
 <p align="center">
   <img src="readme1.jpg" alt="FitMe System Preview" width="700">
 </p>
+
+---
 
 ## 🤖 **LLM Microservice**
 
