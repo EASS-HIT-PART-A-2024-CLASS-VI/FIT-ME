@@ -346,6 +346,10 @@ The Streamlit UI provides a modern, user-friendly gym management experience with
 - **🎂 Birthdays** - Celebration tracker showing upcoming birthdays for both clients and staff members.
 - **🤖 AI Chatbot** - Gemini-powered assistant that provides instant fitness and nutrition guidance to staff.
 
+<p align="center">
+  <img src="readme1.jpg" alt="FitMe System Preview" width="550">
+</p>
+
 ## 🤖 **LLM Microservice**
 
 The system integrates Google's Gemini 1.5 Pro model as an AI assistant through a dedicated microservice:
