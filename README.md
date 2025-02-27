@@ -6,12 +6,12 @@
 
 ## 📖 Overview  
 
-✨ **FitManage** **is a cutting-edge gym management system designed to streamline fitness center operations. It helps efficiently manage clients, staff, group lessons, personal training sessions, and memberships.**
+**FitManage** **is a cutting-edge gym management system designed to streamline fitness center operations. It helps efficiently manage clients, staff, group lessons, personal training sessions, and memberships.**
 
 ### 🔹 This system includes:
 - **⚡ Backend powered by FastAPI**
 - **🎨 Frontend built with Streamlit**
-- **🐘 PostgreSQL database for data management**
+- **🗄️ PostgreSQL database for data management**
 - **🤖 Integrated LLM-based microservice (Gemini AI) for assisting gym employees with valuable insights and guidance.**
 
 🔹 **The Gemini AI microservice helps gym staff by providing real-time assistance, answering questions, and offering workout recommendations for better client interactions.**  
