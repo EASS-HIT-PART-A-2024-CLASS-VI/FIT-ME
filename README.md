@@ -35,10 +35,10 @@
 </p>
 
 ### 🔹 System Overview  
-This diagram illustrates the architecture of the **FitMe Gym Management System**, showcasing the interactions between the **User Web Browser**, **Frontend Service**, **Backend Service**, **Database**, and the **LLM Microservice**.
+**This diagram illustrates the architecture of the **FitMe Gym Management System**, showcasing the interactions between the **User Web Browser**, **Frontend Service**, **Backend Service**, **Database**, and the **LLM Microservice**.**
 
 ### 🧑‍💻 User Web Browser  
-- Users interact with the system via HTTP requests.  
+- **Users interact with the system via HTTP requests.**
 - The frontend updates the UI dynamically based on user interactions.  
 
 ### 🎨 Frontend Service (Streamlit - Port 8501)  
